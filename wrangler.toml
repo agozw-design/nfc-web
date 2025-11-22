@@ -1,7 +1,5 @@
 name = "my-static-site"
 compatibility_date = "2024-11-01"
 
-# 告诉 Cloudflare：我的静态资源就在当前目录 (.)
 [assets]
 directory = "."
-binding = "ASSETS"
