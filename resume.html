@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume-code</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Roboto', 'Songti TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            width: 375px;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        /* 移动端自适应 - 保持比例缩放 */
+        @media screen and (max-width: 768px) {
+            body {
+                justify-content: flex-start;
+                overflow-x: hidden;
+                width: 100vw;
+            }
+            
+            .page-wrapper {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                min-width: 100vw !important;
+                flex-shrink: 0;
+            }
+
+            /* 背景区域自适应 */
+            .resume-bg {
+                width: 100vw !important;
+                height: 70.13vw !important; /* 保持原始比例 263/375 ≈ 0.7013 */
+            }
+
+            .resume-bg img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover;
+                display: block;
+            }
+
+            /* 主容器自适应 */
+            .main-container {
+                width: 100vw !important;
+                gap: 10.67vw !important; /* 40px / 375px = 0.1067 */
+            }
+
+            /* Header和Name容器自适应 */
+            .header-name-container {
+                width: 100vw !important;
+                height: 70.13vw !important; /* 263px / 375px = 0.7013 */
+            }
+
+            .header-section {
+                width: 100vw !important;
+                height: 58.4vw !important; /* 219px / 375px = 0.584 */
+                padding: 6.4vw 5.33vw 0 5.33vw !important; /* 24px 20px 0 20px */
+                gap: 7.2vw !important; /* 27px / 375px = 0.072 */
+            }
+
+            .logo-nav {
+                width: 89.33vw !important;
+            }
+
+            /* Name Section自适应 */
+            .name-section {
+                width: 100vw !important;
+                height: 11.73vw !important; /* 44px / 375px = 0.1173 */
+                padding: 2.67vw 7.2vw !important; /* 10px 27px */
+                gap: 2.67vw !important; /* 10px / 375px = 0.0267 */
+            }
+
+            /* Profile Section自适应 */
+            .profile-section {
+                gap: 16.27vw !important; /* 61px / 375px = 0.1627 */
+                height: 40vw !important; /* 150px / 375px = 0.4 */
+            }
+
+            .profile-image-container {
+                width: 30.93vw !important; /* 116px / 375px = 0.3093 */
+                height: 40vw !important; /* 150px / 375px = 0.4 */
+            }
+
+            .profile-info {
+                width: 29.87vw !important; /* 112px / 375px = 0.2987 */
+                gap: 3.2vw !important; /* 12px / 375px = 0.032 */
+                padding: 8.53vw 0 !important; /* 32px / 375px = 0.0853 */
+            }
+
+            /* Content Section自适应 */
+            .section {
+                padding-left: 7.2vw;
+                padding-right: 7.2vw;
+            }
+
+            /* Footer自适应 */
+            .footer-section {
+                width: 100vw !important;
+            }
+
+            .footer-content {
+                width: 100% !important;
+            }
+
+            .footer-navigation {
+                width: 100% !important;
+            }
+
+            /* 字体大小自适应（使用vw单位） */
+            .navigation {
+                font-size: 2.13vw;
+            }
+
+            .name-title-item.name {
+                font-size: 5.33vw;
+            }
+
+            .name-title-item.title {
+                font-size: 2.67vw;
+            }
+
+            .name-english {
+                font-size: 4vw;
+            }
+
+            .section-header-text {
+                font-size: 2.13vw;
+            }
+
+            .section-text {
+                font-size: 2.13vw;
+            }
+
+            .representative-case-text .section-text {
+                width: 74.67vw !important;
+            }
+
+            .footer-link {
+                font-size: 1.6vw;
+            }
+
+            .footer-link p {
+                font-size: 1.6vw;
+            }
+
+            .footer-contact-item p {
+                font-size: 1.6vw;
+            }
+
+            /* Footer导航元素自适应 */
+            .footer-dots {
+                padding-left: 19.2vw;
+                padding-right: 19.2vw;
+            }
+
+            .footer-arrows {
+                padding-left: 19.2vw;
+                padding-right: 19.2vw;
+            }
+
+            /* 间距自适应 */
+            .content-wrapper {
+                gap: 8.53vw !important; /* 32px / 375px = 0.0853 */
+            }
+
+            .content-section {
+                gap: 7.47vw !important;
+            }
+
+            .section {
+                gap: 5.33vw !important;
+            }
+
+            .logo-nav {
+                height: 4.8vw !important; /* 18px / 375px = 0.048 */
+            }
+
+            .navigation {
+                gap: 2.67vw !important; /* 10px / 375px = 0.0267 */
+            }
+
+            .name-title {
+                gap: 5.07vw !important; /* 19px / 375px = 0.0507 */
+            }
+
+            .position-dept {
+                gap: 1.6vw !important; /* 6px / 375px = 0.016 */
+                padding: 1.07vw !important; /* 4px / 375px = 0.0107 */
+                border-radius: 0.53vw !important; /* 2px / 375px = 0.0053 */
+            }
+        }
+
+        /* 桌面端保持固定宽度 */
+        @media screen and (min-width: 769px) {
+            .page-wrapper {
+                width: 375px;
+                transform: none;
+            }
+        }
+
+        /* Resume Container */
+        .resume-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #ffffff;
+        }
+
+        /* Background Section */
+        .resume-bg {
+            position: absolute;
+            height: 263px;
+            left: 0;
+            top: 0;
+            width: 375px;
+            overflow: hidden;
+        }
+
+        .bg-vector-1 {
+            position: absolute;
+            bottom: 16.73%;
+            left: 0;
+            right: 0;
+            top: 0;
+        }
+
+        .bg-vector-1 img {
+            display: block;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-vector-2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 83.27%;
+        }
+
+        .bg-vector-2 img {
+            display: block;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-clip-group {
+            position: absolute;
+            bottom: 0;
+            left: 67.47%;
+            right: 0;
+            top: 65.78%;
+        }
+
+        .bg-clip-group-inner {
+            position: absolute;
+            bottom: 0;
+            left: 67.47%;
+            right: 0;
+            top: 65.78%;
+            mask-image: url('assets/group-mask.svg');
+            mask-size: 122px 90px;
+            mask-position: 0px;
+            mask-repeat: no-repeat;
+        }
+
+        .bg-clip-group-inner img {
+            display: block;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Main Container */
+        .main-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 375px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            align-items: flex-start;
+            position: relative;
+            width: 100%;
+        }
+
+        /* Container for Header and Name Section */
+        .header-name-container {
+            width: 375px;
+            height: 263px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Section */
+        .header-section {
+            display: flex;
+            flex-direction: column;
+            gap: 27px;
+            align-items: flex-start;
+            padding: 24px 20px 0 20px;
+            position: relative;
+            width: 375px;
+            height: 219px;
+        }
+
+        .logo-nav {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            width: 335px;
+            height: 18px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .logo-line {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 17.6px;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-family: 'PingFang SC', sans-serif;
+            font-size: 8px;
+            line-height: 0;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 17.6px;
+            white-space: pre;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: flex;
+            gap: 61px;
+            height: 150px;
+            width: 100%;
+            padding: 0;
+            align-items: center;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .profile-image-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: max-content;
+            place-items: start;
+            position: relative;
+            width: 116px;
+            height: 150px;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .profile-image-wrapper {
+            display: inline-grid;
+            grid-template-columns: max-content;
+            grid-template-rows: max-content;
+            place-items: start;
+            position: relative;
+            margin-left: -186.17%;
+            margin-top: -26.62%;
+        }
+
+        .profile-image {
+            height: 233.632px;
+            width: 539.88px;
+            position: relative;
+            mask-image: url('assets/rectangle-mask.svg');
+            mask-size: 115.73px 150px;
+            mask-position: 215.45px 39.937px;
+            mask-repeat: no-repeat;
+        }
+
+        .profile-image-inner {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .profile-image-inner img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+            align-items: flex-start;
+            padding: 32px 0;
+            position: relative;
+            width: 112px;
+        }
+
+        .name-title {
+            display: flex;
+            gap: 19px;
+            align-items: flex-end;
+            font-family: 'Songti TC', sans-serif;
+            font-size: 20px;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .name-title-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            white-space: pre;
+        }
+
+        .name-title-item.name {
+            font-size: 20px;
+            line-height: 1.2;
+        }
+
+        .name-title-item.title {
+            font-size: 10px;
+            line-height: 1.2;
+        }
+
+        .position-dept {
+            background-color: #ffffff;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            padding: 4px;
+            border-radius: 2px;
+            width: fit-content;
+            height: fit-content;
+        }
+
+        .position-dept-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'PingFang SC', sans-serif;
+            font-size: 8px;
+            color: #333f72;
+            white-space: pre;
+            padding: 2px 6px;
+        }
+
+        .position-dept-divider {
+            position: relative;
+            width: 0.5px;
+            height: 7px;
+            background-color: #333F72;
+            line-height: normal;
+        }
+
+        .position-dept-divider-inner {
+            position: absolute;
+            bottom: 0;
+            left: -0.25px;
+            right: -0.25px;
+            top: 0;
+        }
+
+        .position-dept-divider-inner img {
+            display: block;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Name Section */
+        .name-section {
+            display: flex;
+            gap: 10px;
+            height: 44px;
+            align-items: center;
+            padding: 10px 27px;
+            position: relative;
+            width: 375px;
+            overflow: hidden;
+            background: transparent;
+        }
+
+
+        .name-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .name-english {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 0;
+            color: #000000;
+            white-space: pre;
+        }
+
+        .name-english p {
+            line-height: normal;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            align-items: flex-start;
+            position: relative;
+            width: 100%;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 0 27px;
+            position: relative;
+            width: 100%;
+        }
+
+        .section-header {
+            background-color: #5569bf;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            justify-content: center;
+            padding: 1px 6px;
+            border-radius: 2px;
+        }
+
+        .section-header-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'PingFang SC', sans-serif;
+            font-size: 8px;
+            line-height: 0;
+            color: #ffffff;
+            white-space: pre;
+        }
+
+        .section-header-text p {
+            line-height: 17.6px;
+        }
+
+        .section-header-divider {
+            height: 7px;
+            position: relative;
+            width: 1px;
+            background-color: #ffffff;
+        }
+
+        .section-header-divider-inner {
+            position: absolute;
+            bottom: 0;
+            left: -0.25px;
+            right: -0.25px;
+            top: 0;
+        }
+
+        .section-header-divider-inner img {
+            display: block;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .section-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-start;
+            padding: 0 8px;
+            position: relative;
+            width: 100%;
+        }
+
+        .section-item {
+            display: flex;
+            gap: 34px;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .section-bullet {
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-bullet img {
+            display: block;
+            width: 1px;
+            height: 1px;
+            max-width: none;
+        }
+
+        .section-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'PingFang SC', sans-serif;
+            font-size: 8px;
+            line-height: 0;
+            color: #000000;
+            white-space: pre;
+        }
+
+        .section-text p {
+            line-height: normal;
+        }
+
+        .section-text.no-wrap {
+            white-space: nowrap;
+        }
+
+        .section-text.wrap {
+            white-space: normal;
+        }
+
+        /* Representative Case Section */
+        .representative-case-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 0 27px;
+            position: relative;
+            width: 100%;
+        }
+
+        .representative-case-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            position: relative;
+            width: 100%;
+        }
+
+        .representative-case-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 0 8px;
+            opacity: 0.8;
+            position: relative;
+            width: 100%;
+        }
+
+        .representative-case-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-start;
+            position: relative;
+            width: 100%;
+        }
+
+        .representative-case-text {
+            display: flex;
+            gap: 34px;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .representative-case-text .section-text {
+            width: 280px;
+        }
+
+        /* Footer Section */
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            position: relative;
+            width: 100%;
+        }
+
+        .footer-navigation {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: flex-start;
+            position: relative;
+            width: 100%;
+        }
+
+        .footer-dots {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 0 72px;
+            position: relative;
+            width: 100%;
+        }
+
+        .footer-dot {
+            position: relative;
+            width: 6px;
+            height: 6px;
+            flex-shrink: 0;
+            background-color: #5569BF;
+            border-radius: 50%;
+        }
+
+        .footer-dot img {
+            display: none;
+        }
+
+        .footer-arrows {
+            display: flex;
+            gap: 1px;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 72px;
+            position: relative;
+            width: 100%;
+        }
+
+        .footer-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+        }
+
+        .footer-arrow-inner {
+            transform: rotate(90deg);
+        }
+
+        .footer-arrow-icon {
+            position: relative;
+            width: 12px;
+            height: 12px;
+        }
+
+        .footer-arrow-icon-inner {
+            position: absolute;
+            width: 9px;
+            height: 10px;
+            background-color: #2DBA7D;
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+            left: 0;
+            top: 0;
+            transform: rotate(-90deg);
+        }
+
+        .footer-arrow-icon-inner img {
+            display: none;
+        }
+
+        .footer-links {
+            background-color: #333f72;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 69px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .footer-quick-links {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            justify-content: center;
+            align-self: center;
+            position: relative;
+        }
+
+        .footer-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'PingFang SC', sans-serif;
+            font-size: 6px;
+            line-height: 0;
+            color: #ffffff;
+            white-space: pre;
+        }
+
+        .footer-link p {
+            line-height: normal;
+        }
+
+        .footer-link-divider {
+            height: 5px;
+            position: relative;
+            width: 1px;
+            background-color: #ffffff;
+        }
+
+        .footer-link-divider-inner {
+            position: absolute;
+            left: -0.25px;
+            right: -0.25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .footer-link-divider-inner img {
+            display: block;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer-contact-info {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            font-family: 'PingFang SC', sans-serif;
+            font-size: 5px;
+            line-height: 0;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .footer-contact-item p {
+            line-height: normal;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="resume-container" data-name="Resume-code" data-node-id="29:16">
+            <!-- Background Section -->
+            <div class="resume-bg" data-name="resume-bg 1" data-node-id="29:218">
+                <img alt="" src="images/bg.svg" />
+            </div>
+
+            <!-- Main Container -->
+            <div class="main-container" data-name="Container" data-node-id="29:19">
+                <div class="content-wrapper" data-name="Container" data-node-id="29:20">
+                    <div class="header-name-container" data-name="Container" data-node-id="29:21">
+                        <!-- Header Section -->
+                        <div class="header-section" data-name="Header" data-node-id="29:22">
+                            <div class="logo-nav" data-name="Logo and Navigation" data-node-id="29:23">
+                                <div class="logo" data-name="Logo" data-node-id="29:24">
+                                    <img alt="" src="images/resume_logo.svg" />
+                                </div>
+                                <div class="navigation" data-name="Navigation" data-node-id="29:27">
+                                    <div class="nav-item" data-node-id="29:28">
+                                        <p>业务领域</p>
+                                    </div>
+                                    <div class="nav-item" data-node-id="29:29">
+                                        <p>经典案例</p>
+                                    </div>
+                                    <div class="nav-item" data-node-id="29:30">
+                                        <p>业务团队</p>
+                                    </div>
+                                    <div class="nav-item" data-node-id="29:31">
+                                        <p>关于我们</p>
+                                    </div>
+                                    <div class="nav-item" data-node-id="29:32">
+                                        <p>联系我们</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-section" data-name="Profile Section" data-node-id="29:33">
+                                <img src="images/photo.svg" alt="" class="profile-image-container" data-name="Clip path group" data-node-id="29:34" />
+                                <div class="profile-info" data-name="Profile Info" data-node-id="29:39">
+                                    <div class="name-title" data-name="Name and Title" data-node-id="29:40">
+                                        <div class="name-title-item name" data-node-id="29:41">
+                                            <p>蒋丞</p>
+                                        </div>
+                                        <div class="name-title-item title" data-node-id="29:42">
+                                            <p>律师</p>
+                                        </div>
+                                    </div>
+                                    <div class="position-dept" data-name="Position and Department" data-node-id="29:43">
+                                        <div class="position-dept-text" data-node-id="29:44">
+                                            <p>合伙人</p>
+                                        </div>
+                                        <div class="position-dept-divider" data-node-id="29:45">
+                                            <div class="position-dept-divider-inner">
+                                                <img alt="" src="assets/vector2.svg" />
+                                            </div>
+                                        </div>
+                                        <div class="position-dept-text" data-node-id="29:46">
+                                            <p>商事诉讼与仲裁部</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Name Section -->
+                        <div class="name-section" data-name="Name Section" data-node-id="29:47">
+                            <div class="name-english" data-node-id="29:48">
+                                <p>JIANG CHENG</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Section -->
+                    <div class="content-section" data-name="Content Section" data-node-id="29:52">
+                        <!-- Professional Field Section -->
+                        <div class="section" data-name="Professional Field Section" data-node-id="29:53">
+                            <div class="section-header" data-name="Professional Field Header" data-node-id="29:54">
+                                <div class="section-header-text" data-node-id="29:55">
+                                    <p>专业领域</p>
+                                </div>
+                                <div class="section-header-divider" data-node-id="29:56">
+                                    <div class="section-header-divider-inner">
+                                        <img alt="" src="assets/vector3.svg" />
+                                    </div>
+                                </div>
+                                <div class="section-header-text" data-node-id="29:57">
+                                    <p>Professional field</p>
+                                </div>
+                            </div>
+                            <div class="section-list" data-name="Professional Field List" data-node-id="29:58">
+                                <div class="section-item" data-name="Professional Field Item" data-node-id="29:59">
+                                    <div class="section-bullet" data-node-id="29:60">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:61">
+                                        <p>复杂商事争议解决</p>
+                                    </div>
+                                </div>
+                                <div class="section-item" data-name="Professional Field Item" data-node-id="29:62">
+                                    <div class="section-bullet" data-node-id="29:63">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:64">
+                                        <p>公司并购与重组</p>
+                                    </div>
+                                </div>
+                                <div class="section-item" data-name="Professional Field Item" data-node-id="29:65">
+                                    <div class="section-bullet" data-node-id="29:66">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:67">
+                                        <p>知识产权保护</p>
+                                    </div>
+                                </div>
+                                <div class="section-item" data-name="Professional Field Item" data-node-id="29:68">
+                                    <div class="section-bullet" data-node-id="29:69">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:70">
+                                        <p>重大刑事案件辩护</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Professional Philosophy Section -->
+                        <div class="section" data-name="Professional Philosophy Section" data-node-id="29:71">
+                            <div class="section-header" data-name="Professional Philosophy Header" data-node-id="29:72">
+                                <div class="section-header-text" data-node-id="29:73">
+                                    <p>执业理念</p>
+                                </div>
+                                <div class="section-header-divider" data-node-id="29:74">
+                                    <div class="section-header-divider-inner">
+                                        <img alt="" src="assets/vector3.svg" />
+                                    </div>
+                                </div>
+                                <div class="section-header-text" data-node-id="29:75">
+                                    <p>Professional Philosophy</p>
+                                </div>
+                            </div>
+                            <div class="section-list" data-name="Professional Philosophy List" data-node-id="29:76">
+                                <div class="section-item" data-name="Professional Philosophy Item" data-node-id="29:77">
+                                    <div class="section-bullet" data-node-id="29:78">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:79">
+                                        <p>我们相信，法律是维护公平的武器，而非束之高阁的典籍。</p>
+                                    </div>
+                                </div>
+                                <div class="section-item" data-name="Professional Philosophy Item" data-node-id="29:80">
+                                    <div class="section-bullet" data-node-id="29:81">
+                                        <img alt="" src="assets/ellipse3.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:82">
+                                        <p>为每一位当事人厘清迷局、捍卫权利，是蒋丞律师及其团队不变的承诺。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Representative Case Section -->
+                        <div class="representative-case-section" data-name="Representative Case Section" data-node-id="29:83">
+                            <div class="representative-case-list" data-name="Representative Case List" data-node-id="29:84">
+                                <div class="section-header" data-name="Representative Case Header" data-node-id="29:85">
+                                    <div class="section-header-text" data-node-id="29:86">
+                                        <p>代表案例</p>
+                                    </div>
+                                    <div class="section-header-divider" data-node-id="29:87">
+                                        <div class="section-header-divider-inner">
+                                            <img alt="" src="assets/vector3.svg" />
+                                        </div>
+                                    </div>
+                                    <div class="section-header-text" data-node-id="29:88">
+                                        <p>Representative Case</p>
+                                    </div>
+                                </div>
+                                <div class="representative-case-items" data-name="Representative Case List" data-node-id="29:89">
+                                    <div class="representative-case-item" data-name="Representative Case Item" data-node-id="29:90">
+                                        <div class="representative-case-item" data-name="Representative Case Item" data-node-id="29:91">
+                                            <div class="representative-case-text" data-name="Representative Case Text" data-node-id="29:92">
+                                                <div class="section-bullet" data-node-id="29:93">
+                                                    <img alt="" src="assets/ellipse2.svg" />
+                                                </div>
+                                                <div class="section-text no-wrap" data-node-id="29:94">
+                                                    <p>成功代理某科技公司商业秘密侵权纠纷案，为客户挽回经济损失逾亿元。</p>
+                                                </div>
+                                            </div>
+                                            <div class="representative-case-text" data-name="Representative Case Text" data-node-id="29:95">
+                                                <div class="section-bullet" data-node-id="29:96">
+                                                    <img alt="" src="assets/ellipse3.svg" />
+                                                </div>
+                                                <div class="section-text no-wrap" data-node-id="29:97">
+                                                    <p>该案入选年度十大知识产权典型案例。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="representative-case-item" data-name="Representative Case Item" data-node-id="29:98">
+                                            <div class="representative-case-text" data-name="Representative Case Text" data-node-id="29:99">
+                                                <div class="section-bullet" data-node-id="29:100">
+                                                    <img alt="" src="assets/ellipse2.svg" />
+                                                </div>
+                                                <div class="section-text no-wrap" data-node-id="29:101">
+                                                    <p>作为主办律师，为某跨国企业在中国区的重大资产并购项目提供全程法律服务。</p>
+                                                </div>
+                                            </div>
+                                            <div class="representative-case-text" data-name="Representative Case Text" data-node-id="29:102">
+                                                <div class="section-bullet" data-node-id="29:103">
+                                                    <img alt="" src="assets/ellipse3.svg" />
+                                                </div>
+                                                <div class="section-text no-wrap" data-node-id="29:104">
+                                                    <p>交易总额达数十亿美元。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="representative-case-item" data-name="Representative Case Item" data-node-id="29:105">
+                                            <div class="representative-case-text" data-name="Representative Case Text" data-node-id="29:106">
+                                                <div class="section-bullet" data-node-id="29:107">
+                                                    <img alt="" src="assets/ellipse2.svg" />
+                                                </div>
+                                                <div class="section-text wrap" data-node-id="29:108">
+                                                    <p>在备受关注的"XX集资诈骗案"中，为被告人进行有力辩护，</p>
+                                                </div>
+                                            </div>
+                                            <div class="representative-case-text" data-name="Representative Case Text" data-node-id="29:109">
+                                                <div class="section-bullet" data-node-id="29:110">
+                                                    <img alt="" src="assets/ellipse3.svg" />
+                                                </div>
+                                                <div class="section-text no-wrap" data-node-id="29:111">
+                                                    <p>最终法院采纳辩护意见，依法核减了多项不当指控。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="representative-case-item" data-name="Representative Case Item" data-node-id="29:112">
+                                            <div class="representative-case-text" data-name="Representative Case Text" data-node-id="29:113">
+                                                <div class="section-bullet" data-node-id="29:114">
+                                                    <img alt="" src="assets/ellipse2.svg" />
+                                                </div>
+                                                <div class="section-text no-wrap" data-node-id="29:115">
+                                                    <p>代理数百名农民工群体性劳务纠纷案，通过诉讼与谈判结合的方式，</p>
+                                                </div>
+                                            </div>
+                                            <div class="representative-case-text" data-name="Representative Case Text" data-node-id="29:116">
+                                                <div class="section-bullet" data-node-id="29:117">
+                                                    <img alt="" src="assets/ellipse3.svg" />
+                                                </div>
+                                                <div class="section-text no-wrap" data-node-id="29:118">
+                                                    <p>在三个月内高效促成调解，帮助当事人全额追回欠薪。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Activities and Honors Section -->
+                        <div class="section" data-name="Social Activities and Honors Section" data-node-id="29:119">
+                            <div class="section-header" data-name="Social Activities and Honors Header" data-node-id="29:120">
+                                <div class="section-header-text" data-node-id="29:121">
+                                    <p>社会活动与荣誉</p>
+                                </div>
+                                <div class="section-header-divider" data-node-id="29:122">
+                                    <div class="section-header-divider-inner">
+                                        <img alt="" src="assets/vector3.svg" />
+                                    </div>
+                                </div>
+                                <div class="section-header-text" data-node-id="29:123">
+                                    <p>Social Activities and Honors</p>
+                                </div>
+                            </div>
+                            <div class="section-list" data-name="Social Activities and Honors List" data-node-id="29:124">
+                                <div class="section-item" data-name="Social Activities and Honors Item" data-node-id="29:125">
+                                    <div class="section-bullet" data-node-id="29:126">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:127">
+                                        <p>中华全国律师协会 会员</p>
+                                    </div>
+                                </div>
+                                <div class="section-item" data-name="Social Activities and Honors Item" data-node-id="29:128">
+                                    <div class="section-bullet" data-node-id="29:129">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:130">
+                                        <p>XX省律师协会商事法律专业委员会 委员</p>
+                                    </div>
+                                </div>
+                                <div class="section-item" data-name="Social Activities and Honors Item" data-node-id="29:131">
+                                    <div class="section-bullet" data-node-id="29:132">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:133">
+                                        <p>XX市"优秀青年律师"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Educational Background Section -->
+                        <div class="section" data-name="Educational Background Section" data-node-id="29:134">
+                            <div class="section-header" data-name="Educational Background Header" data-node-id="29:135">
+                                <div class="section-header-text" data-node-id="29:136">
+                                    <p>教育背景</p>
+                                </div>
+                                <div class="section-header-divider" data-node-id="29:137">
+                                    <div class="section-header-divider-inner">
+                                        <img alt="" src="assets/vector3.svg" />
+                                    </div>
+                                </div>
+                                <div class="section-header-text" data-node-id="29:138">
+                                    <p>Educational Background</p>
+                                </div>
+                            </div>
+                            <div class="section-list" data-name="Educational Background List" data-node-id="29:139">
+                                <div class="section-item" data-name="Educational Background Item" data-node-id="29:140">
+                                    <div class="section-bullet" data-node-id="29:141">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:142">
+                                        <p>R大 法学</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Working Language Section -->
+                        <div class="section" data-name="Working Language Section" data-node-id="29:143">
+                            <div class="section-header" data-name="Working Language Header" data-node-id="29:144">
+                                <div class="section-header-text" data-node-id="29:145">
+                                    <p>工作语言</p>
+                                </div>
+                                <div class="section-header-divider" data-node-id="29:146">
+                                    <div class="section-header-divider-inner">
+                                        <img alt="" src="assets/vector3.svg" />
+                                    </div>
+                                </div>
+                                <div class="section-header-text" data-node-id="29:147">
+                                    <p>Working language</p>
+                                </div>
+                            </div>
+                            <div class="section-list" data-name="Working Language List" data-node-id="29:148">
+                                <div class="section-item" data-name="Working Language Item" data-node-id="29:149">
+                                    <div class="section-bullet" data-node-id="29:150">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:151">
+                                        <p>中文 & 英文</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Us Section -->
+                        <div class="section" data-name="Contact Us Section" data-node-id="29:152">
+                            <div class="section-header" data-name="Contact Us Header" data-node-id="29:153">
+                                <div class="section-header-text" data-node-id="29:154">
+                                    <p>联系我们</p>
+                                </div>
+                                <div class="section-header-divider" data-node-id="29:155">
+                                    <div class="section-header-divider-inner">
+                                        <img alt="" src="assets/vector3.svg" />
+                                    </div>
+                                </div>
+                                <div class="section-header-text" data-node-id="29:156">
+                                    <p> Contact Us</p>
+                                </div>
+                            </div>
+                            <div class="section-list" data-name="Contact Us List" data-node-id="29:157">
+                                <div class="section-item" data-name="Contact Us Item" data-node-id="29:158">
+                                    <div class="section-bullet" data-node-id="29:159">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:160">
+                                        <p>电话: 010-XXXX-XXXX (分机: 829)</p>
+                                    </div>
+                                </div>
+                                <div class="section-item" data-name="Contact Us Item" data-node-id="29:161">
+                                    <div class="section-bullet" data-node-id="29:162">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:163">
+                                        <p>邮箱: tufeidemaocheng@saye.com</p>
+                                    </div>
+                                </div>
+                                <div class="section-item" data-name="Contact Us Item" data-node-id="29:164">
+                                    <div class="section-bullet" data-node-id="29:165">
+                                        <img alt="" src="assets/ellipse2.svg" />
+                                    </div>
+                                    <div class="section-text no-wrap" data-node-id="29:166">
+                                        <p>地址: XX市XX区XX商务区国贸大厦X座XX层</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Section -->
+                <div class="footer-section" data-name="Footer" data-node-id="29:167">
+                    <div class="footer-navigation" data-name="Footer Navigation" data-node-id="29:168">
+                        <div class="footer-dots" data-name="Footer Dots" data-node-id="29:169">
+                            <div class="footer-dot" data-node-id="29:170">
+                                <img alt="" src="assets/ellipse4.svg" />
+                            </div>
+                            <div class="footer-dot" data-node-id="29:171">
+                                <img alt="" src="assets/ellipse4.svg" />
+                            </div>
+                            <div class="footer-dot" data-node-id="29:172">
+                                <img alt="" src="assets/ellipse4.svg" />
+                            </div>
+                        </div>
+                        <div class="footer-arrows" data-name="Footer Arrows" data-node-id="29:173">
+                            <div class="footer-arrow">
+                                <div class="footer-arrow-inner">
+                                    <div class="footer-arrow-icon" data-node-id="29:174">
+                                        <div class="footer-arrow-icon-inner">
+                                            <img alt="" src="assets/polygon1.svg" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-arrow">
+                                <div class="footer-arrow-inner">
+                                    <div class="footer-arrow-icon" data-node-id="29:175">
+                                        <div class="footer-arrow-icon-inner">
+                                            <img alt="" src="assets/polygon1.svg" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-arrow">
+                                <div class="footer-arrow-inner">
+                                    <div class="footer-arrow-icon" data-node-id="29:176">
+                                        <div class="footer-arrow-icon-inner">
+                                            <img alt="" src="assets/polygon1.svg" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-links" data-name="Footer Links" data-node-id="29:177">
+                        <div class="footer-quick-links" data-name="Footer Quick Links" data-node-id="29:178">
+                            <div class="footer-link" data-node-id="29:179">
+                                <p>快速访问</p>
+                            </div>
+                            <div class="footer-link-divider" data-node-id="29:180">
+                                <div class="footer-link-divider-inner">
+                                    <img alt="" src="assets/vector4.svg" />
+                                </div>
+                            </div>
+                            <div class="footer-link" data-node-id="29:181">
+                                <p>主任致辞</p>
+                            </div>
+                            <div class="footer-link-divider" data-node-id="29:182">
+                                <div class="footer-link-divider-inner">
+                                    <img alt="" src="assets/vector4.svg" />
+                                </div>
+                            </div>
+                            <div class="footer-link" data-node-id="29:183">
+                                <p>律所文化</p>
+                            </div>
+                            <div class="footer-link-divider" data-node-id="29:184">
+                                <div class="footer-link-divider-inner">
+                                    <img alt="" src="assets/vector4.svg" />
+                                </div>
+                            </div>
+                            <div class="footer-link" data-node-id="29:185">
+                                <p>企业邮箱</p>
+                            </div>
+                            <div class="footer-link-divider" data-node-id="29:186">
+                                <div class="footer-link-divider-inner">
+                                    <img alt="" src="assets/vector4.svg" />
+                                </div>
+                            </div>
+                            <div class="footer-link" data-node-id="29:187">
+                                <p>律所简介</p>
+                            </div>
+                        </div>
+                        <div class="footer-contact-info" data-name="Footer Contact Info" data-node-id="29:188">
+                            <div class="footer-contact-item" data-node-id="29:189">
+                                <p>联系邮箱: lawfirm001@law.com.cn</p>
+                            </div>
+                            <div class="footer-contact-item" data-node-id="29:190">
+                                <p>联系电话: 010-58997766 | Copyright 2016-2025</p>
+                            </div>
+                            <div class="footer-contact-item" data-node-id="29:191">
+                                <p>律师事务所ICP备案信息: ICP备5899776号</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
