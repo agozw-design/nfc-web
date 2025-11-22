@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SNS Code · SAYE</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --page-width: 375px;
+        --bg: #f6f7f7;
+        --text-primary: #1b1b1b;
+        --text-secondary: #727171;
+        --text-muted: #9fa0a0;
+        --border: #c9caca;
+        --line: #e3e3e3;
+        --pill-bg: rgba(201, 202, 202, 0.18);
+        --accent: #439ef9;
+        --card-bg: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'PingFang SC', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        background: var(--bg);
+        display: flex;
+        justify-content: center;
+        color: var(--text-primary);
+      }
+
+      main {
+        width: var(--page-width);
+        min-height: 100vh;
+        background: var(--card-bg);
+        padding-bottom: 40px;
+      }
+
+      header {
+        padding: 24px 0 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand-row,
+      .nav-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .logo-text {
+        font-family: 'Roboto', 'Inter', sans-serif;
+        font-weight: 300;
+        font-size: 29px;
+        letter-spacing: 0.06em;
+      }
+
+      .logo-mark {
+        position: relative;
+        width: 65px;
+        height: 34px;
+      }
+
+      .logo-mark::before,
+      .logo-mark::after {
+        content: '';
+        position: absolute;
+        border: 1.8px solid #000;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        top: 0;
+      }
+
+      .logo-mark::before {
+        left: 0;
+        background: #fff;
+      }
+
+      .logo-mark::after {
+        right: 0;
+        background: linear-gradient(135deg, #3574f7, #48acff);
+        opacity: 0.18;
+      }
+
+      .logo-arrow {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-arrow span {
+        position: relative;
+        width: 38px;
+        height: 6px;
+        background: #2c7cf4;
+        border-radius: 99px;
+      }
+
+      .logo-arrow span::after {
+        content: '';
+        position: absolute;
+        right: -2px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 6px solid transparent;
+        border-left-color: #2c7cf4;
+      }
+
+      .logo-shadow {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 2px;
+        height: 10px;
+        border: 1px solid #111;
+        border-radius: 999px;
+        transform: skewX(-12deg);
+      }
+
+      .author {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        font-family: 'Doto', 'Roboto Mono', monospace;
+        font-size: 8px;
+        letter-spacing: 0.24em;
+        color: var(--text-primary);
+      }
+
+      .nav-row {
+        padding-top: 20px;
+        gap: 34px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        font-size: 8px;
+        color: var(--text-secondary);
+      }
+
+      .nav-links span {
+        white-space: nowrap;
+      }
+
+      .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .search {
+        width: 103px;
+        height: 16px;
+        border: 1px solid var(--text-secondary);
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 6px;
+      }
+
+      .search-icon {
+        width: 8px;
+        height: 8px;
+        border: 1px solid var(--text-secondary);
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .search-icon::after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 1px;
+        background: var(--text-secondary);
+        bottom: -2px;
+        right: -3px;
+        transform: rotate(45deg);
+        transform-origin: left center;
+      }
+
+      .avatar-circle {
+        width: 16px;
+        height: 16px;
+        border: 1px solid var(--text-secondary);
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .avatar-circle::before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 1px solid var(--text-secondary);
+      }
+
+      .avatar-circle::after {
+        content: '';
+        position: absolute;
+        left: 2px;
+        right: 2px;
+        bottom: 3px;
+        height: 6px;
+        border: 1px solid var(--text-secondary);
+        border-radius: 50%;
+      }
+
+      .notice,
+      .thread-card {
+        margin: 0 20px;
+        background: var(--bg);
+        border-radius: 2px;
+        padding: 4px 20px;
+        font-size: 8px;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .notice {
+        margin-top: 12px;
+      }
+
+      .notice-icon {
+        width: 10px;
+        height: 10px;
+        border: 1px solid var(--text-secondary);
+        border-radius: 2px;
+        position: relative;
+      }
+
+      .notice-icon::before,
+      .notice-icon::after {
+        content: '';
+        position: absolute;
+        background: var(--text-secondary);
+      }
+
+      .notice-icon::before {
+        width: 6px;
+        height: 1px;
+        top: 4px;
+        left: 2px;
+      }
+
+      .notice-icon::after {
+        width: 1px;
+        height: 4px;
+        top: 3px;
+        left: 4px;
+      }
+
+      .notice-divider {
+        width: 1px;
+        height: 6px;
+        background: var(--text-secondary);
+        opacity: 0.35;
+      }
+
+      .notice strong {
+        font-weight: 600;
+      }
+
+      .thread-card {
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--text-primary);
+        font-weight: 600;
+        padding: 10px 20px;
+      }
+
+      .thread-card span {
+        font-weight: 500;
+      }
+
+      section {
+        margin-top: 24px;
+        padding-bottom: 16px;
+      }
+
+      .post {
+        padding: 0 20px 24px;
+      }
+
+      .post + .post {
+        border-top: 1px solid var(--line);
+        padding-top: 24px;
+      }
+
+      .post-header {
+        display: flex;
+        gap: 16px;
+      }
+
+      .post-avatar {
+        width: 56px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        font-size: 8px;
+        color: var(--text-secondary);
+      }
+
+      .post-avatar figure {
+        width: 56px;
+        height: 55px;
+        margin: 0;
+        border: 1px solid #dcdcdc;
+        border-radius: 6px;
+        background: linear-gradient(150deg, #f7f7f7, #e0e0e0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: #aaa;
+      }
+
+      .post-role {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        padding: 4px;
+        color: var(--text-muted);
+        font-size: 6px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        background: var(--pill-bg);
+      }
+
+      .post-role::before,
+      .post-role::after {
+        content: '★';
+        font-size: 6px;
+        color: #c6c6c6;
+      }
+
+      .post-body {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .post-text {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #1f1f1f;
+        margin: 0;
+      }
+
+      .post-pill {
+        align-self: flex-start;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 8px;
+        color: var(--accent);
+        background: rgba(67, 158, 249, 0.08);
+      }
+
+      .post-meta {
+        margin-top: 12px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 4px;
+        font-size: 8px;
+        color: var(--text-secondary);
+        align-items: center;
+      }
+
+      .meta-divider {
+        width: 1px;
+        height: 6px;
+        background: var(--text-secondary);
+        opacity: 0.4;
+      }
+
+      footer {
+        margin-top: 40px;
+        font-size: 10px;
+        text-align: center;
+        color: var(--text-muted);
+      }
+
+      @media (max-width: 380px) {
+        body {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="brand-row">
+          <div class="logo">
+            <span class="logo-text">SAYE</span>
+            <div class="logo-mark">
+              <div class="logo-arrow"><span></span></div>
+              <div class="logo-shadow"></div>
+            </div>
+          </div>
+          <div class="author">
+            <span>GU FEI &</span>
+            <span>JIANG CHENG</span>
+          </div>
+        </div>
+        <div class="nav-row">
+          <div class="nav-links">
+            <span>首页</span>
+            <span>论坛</span>
+            <span>关注</span>
+            <span>热榜</span>
+            <span>专栏</span>
+          </div>
+          <div class="nav-controls">
+            <div class="search">
+              <div class="search-icon"></div>
+            </div>
+            <div class="avatar-circle"></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="notice">
+        <span class="notice-icon"></span>
+        <span>社区杂谈</span>
+        <span class="notice-divider"></span>
+        <span>【公告】社区发言规范及积分获得标准</span>
+      </div>
+
+      <div class="thread-card">
+        <span>【八卦专楼】</span>
+        卧槽！那个开车接G老师的帅哥到底是谁？！
+      </div>
+
+      <section aria-label="帖子列表">
+        <article class="post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <figure>♡</figure>
+              <span>别扒我皮</span>
+              <div class="post-role">初级灌水家</div>
+            </div>
+            <div class="post-body">
+              <p class="post-text">
+                rt，最近经常有个帅哥在校门口等G老师！ 今天iz跟G老师一起出校门（别问为什么被留堂了呵呵...），又看到了那个帅哥，iz瞄到后驾驶好像还有花。G老师一走近，那哥就下车了，腿长得我直接斯哈嘶哈！
+              </p>
+              <span class="post-pill">楼主</span>
+            </div>
+          </div>
+          <div class="post-meta">
+            <span>1楼</span>
+            <span class="meta-divider"></span>
+            <span>发帖时间：17:20</span>
+            <span class="meta-divider"></span>
+            <span>周一</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <figure>☾</figure>
+              <span>早八毁灭者</span>
+              <div class="post-role">初级灌水家</div>
+            </div>
+            <div class="post-body">
+              <p class="post-text">
+                对x，一眼望去最帅的就是G老师。来接G老师的帅哥跟G老师帅得不相上下啊！！昨晚还梦见他们一起走红毯，醒来直接扣分。
+              </p>
+              <span class="post-pill">围观</span>
+            </div>
+          </div>
+          <div class="post-meta">
+            <span>2楼</span>
+            <span class="meta-divider"></span>
+            <span>发帖时间：17:32</span>
+            <span class="meta-divider"></span>
+            <span>周一</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <figure>∞</figure>
+              <span>重生之我是</span>
+              <div class="post-role">初级灌水家</div>
+            </div>
+            <div class="post-body">
+              <p class="post-text">
+                数学课代表在线八卦：那哥真的超级有范，穿得跟画册一样。G老师刚走近他就下车，顺手关门那一刻我人没了……
+              </p>
+              <span class="post-pill">打卡</span>
+            </div>
+          </div>
+          <div class="post-meta">
+            <span>3楼</span>
+            <span class="meta-divider"></span>
+            <span>发帖时间：17:45</span>
+            <span class="meta-divider"></span>
+            <span>周一</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <figure>★</figure>
+              <span>啊对对对</span>
+              <div class="post-role">初级灌水家</div>
+            </div>
+            <div class="post-body">
+              <p class="post-text">
+                iz说后座像是摆了花瓶，我看更像是礼盒。有没有懂车的姐妹帮忙看看是什么品牌？求扒！
+              </p>
+              <span class="post-pill">求科普</span>
+            </div>
+          </div>
+          <div class="post-meta">
+            <span>4楼</span>
+            <span class="meta-divider"></span>
+            <span>发帖时间：18:02</span>
+            <span class="meta-divider"></span>
+            <span>周一</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <figure>✧</figure>
+              <span>遗失的心跳</span>
+              <div class="post-role">初级灌水家</div>
+            </div>
+            <div class="post-body">
+              <p class="post-text">
+                别说腿了，那哥的手指也好看得离谱。G老师靠在车门说了句“上车”，我差点原地涨潮。
+              </p>
+              <span class="post-pill">嗑疯了</span>
+            </div>
+          </div>
+          <div class="post-meta">
+            <span>5楼</span>
+            <span class="meta-divider"></span>
+            <span>发帖时间：18:15</span>
+            <span class="meta-divider"></span>
+            <span>周一</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <figure>07:59</figure>
+              <span>别扒我皮</span>
+              <div class="post-role">初级灌水家</div>
+            </div>
+            <div class="post-body">
+              <p class="post-text">
+                今早07:59:59卡点看守校门，原来他还会替G老师撑伞。感觉这对是真的，姐妹们别质疑！
+              </p>
+              <span class="post-pill">情报</span>
+            </div>
+          </div>
+          <div class="post-meta">
+            <span>6楼</span>
+            <span class="meta-divider"></span>
+            <span>发帖时间：08:01</span>
+            <span class="meta-divider"></span>
+            <span>周二</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <figure>◎</figure>
+              <span>今天G老师</span>
+              <div class="post-role">初级灌水家</div>
+            </div>
+            <div class="post-body">
+              <p class="post-text">
+                扣分了吗：扣了。因为全班都在窗边看帅哥，没人听讲。老师自己也笑场了，谁懂！
+              </p>
+              <span class="post-pill">叹气</span>
+            </div>
+          </div>
+          <div class="post-meta">
+            <span>7楼</span>
+            <span class="meta-divider"></span>
+            <span>发帖时间：10:20</span>
+            <span class="meta-divider"></span>
+            <span>周二</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-header">
+            <div class="post-avatar">
+              <figure>△</figure>
+              <span>别扒我皮</span>
+              <div class="post-role">初级灌水家</div>
+            </div>
+            <div class="post-body">
+              <p class="post-text">
+                更新：晚上又看到他们一起离开校园，这次帅哥还把G老师的背包接过去。腿长手长帅哥 yyds。
+              </p>
+              <span class="post-pill">更新</span>
+            </div>
+          </div>
+          <div class="post-meta">
+            <span>8楼</span>
+            <span class="meta-divider"></span>
+            <span>发帖时间：20:42</span>
+            <span class="meta-divider"></span>
+            <span>周二</span>
+          </div>
+        </article>
+      </section>
+
+      <footer>© 2025 SAYE · NFC web mock</footer>
+    </main>
+  </body>
+</html>
+
+
+
