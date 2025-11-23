@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>贴吧·SAYE</title>
+    <title>SNS-code</title>
     <style>
         * {
             margin: 0;
@@ -280,7 +280,7 @@
         }
 
         .badge-container {
-            border: 0px;
+            border: 0.5px solid #C9CACA;
             border-radius: 99px;
             padding: 4px;
             display: flex;
@@ -307,8 +307,22 @@
         .comment-text-container {
             flex: 1;
             display: flex;
+            gap: 16px;
             align-items: flex-start;
-            justify-content: space-between;
+        }
+
+        .message-text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .message-subtext-container {
+            display: flex;
+            align-items: flex-start;
+            flex-shrink: 0;
         }
 
         .comment-image {
@@ -328,13 +342,22 @@
             width: 32px;
             height: 32px;
             object-fit: contain;
+            animation: none !important;
+            animation-play-state: paused !important;
+            outline: none !important;
+            border: none !important;
+        }
+        
+        .emoji-image * {
+            animation: none !important;
+            animation-play-state: paused !important;
         }
 
         .comment-text {
             font-size: 8px;
             color: #000000;
             line-height: normal;
-            width: 220px;
+            width: fit-content;
         }
 
         .comment-text p {
@@ -342,7 +365,7 @@
         }
 
         .comment-action {
-            border: 0px;
+            border: 0.5px solid #C9CACA;
             border-radius: 99px;
             padding: 4px;
             width: 28px;
@@ -404,7 +427,7 @@
             gap: 24px;
             align-items: flex-start;
             justify-content: flex-end;
-            padding: 20px 20px 10px 20px;
+            padding: 10px 20px;
         }
 
         .footer-image {
@@ -545,7 +568,7 @@
                 <div class="comment-text-container" data-name="Container" data-node-id="16:4580">
                     <div class="comment-text" data-name="Post content" data-node-id="16:4581">
                         <p>rt，最近经常有个帅哥在校门口等G老师！</p>
-                        <p>今天iz跟G老师一起出校门（别问为什么被留堂了呵呵...），又看到了那个帅哥，iz瞄到后驾驶好像还有花。</p>
+                        <p>今天lz跟G老师一起出校门（别问为什么被留堂了呵呵...），又看到了那个帅哥，lz瞄到后驾驶好像还有花。</p>
                         <p>G老师一走近，那哥就下车了，腿长得我直接斯哈嘶哈！</p>
                     </div>
                     <div class="comment-action" data-name="Frame 16" data-node-id="16:4582">
@@ -1261,13 +1284,19 @@
                         <img src="images/star.svg" alt="Star" class="star-icon" style="width: 5px; height: 5px; object-fit: contain;" />
                     </div>
                 </div>
-                <div class="comment-text-container" data-name="Container" data-node-id="16:5262">
-                    <div class="comment-text" data-name="Post content" data-node-id="16:5263">
-                        <p>别乱磕，见到两个帅哥就脑补起来了，</p>
-                        <p>单纯的朋友吧</p>
-                    </div>
-                    <div class="emoji-container" data-name="Group" data-node-id="16:5262-emoji">
-                        <img src="images/emoji_1.svg" alt="Emoji" class="emoji-image" />
+                <div class="comment-text-container" data-name="Message Container" data-node-id="16:5262">
+                    <div class="message-text-container" data-name="Message Text Container" data-node-id="16:6374">
+                        <div class="comment-text" data-name="Message Text" data-node-id="16:5263">
+                            <p>别乱磕，见到两个帅哥就脑补起来了，</p>
+                        </div>
+                        <div class="message-subtext-container" data-name="Message Subtext Container" data-node-id="16:6729">
+                            <div class="comment-text" data-name="Subtext" data-node-id="16:6372" style="white-space: pre;">
+                                <p>单纯的朋友吧</p>
+                            </div>
+                            <div class="emoji-container" data-name="Group" data-node-id="16:6611">
+                                <img src="images/emoji_1.svg" alt="Emoji" class="emoji-image" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1554,8 +1583,10 @@
                     </div>
                 </div>
                 <div class="comment-text-container" data-name="Message Container" data-node-id="16:6371">
-                    <div class="comment-text" data-name="Post content" data-node-id="16:4637">
-                        <p>丞哥，你......</p>
+                    <div class="message-text-container" data-name="Message Text Container" data-node-id="16:4636">
+                        <div class="comment-text" data-name="Message Text" data-node-id="16:4637">
+                            <p>丞哥，你......</p>
+                        </div>
                     </div>
                     <div class="emoji-container" data-name="Group" data-node-id="16:6272">
                         <img src="images/emoji_2.svg" alt="Emoji" class="emoji-image" />
