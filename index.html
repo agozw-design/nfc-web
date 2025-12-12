@@ -1,42 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>NFC Web - 主页</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    /* 画布固定为 375px 宽度 */
-    .app {
-      width: 375px;
-      margin: 0 auto;
-      position: relative;
-    }
-    .frame {
-      position: relative;
-      width: 375px;
-    }
-    .frame img {
-      display: block;
-      width: 100%;
-      height: auto;
-      pointer-events: none;
-      user-select: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自适应图片展示</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center; /* 页面居中 */
+        }
+
+        /* 图片容器：控制图片的最大显示范围 */
+        .img-wrapper {
+            width: 100%;            /* 默认占满父容器 */
+            max-width: 1000px;      /* 限制最大宽度，防止在大屏上过大 */
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 核心代码：自适应图片 */
+        .responsive-img {
+            width: 100%;        /* 关键：宽度跟随容器变化 */
+            height: auto;       /* 关键：高度自动计算，保持比例 */
+            display: block;     /* 去除图片底部的默认间隙 */
+            object-fit: contain; /* 确保内容完整显示 */
+        }
+    </style>
 </head>
 <body>
-  <div class="app" data-node-id="39:5938">
-    <div class="frame" data-name="【1210】论坛框架 主页 1 1" data-node-id="39:5937">
-      <img src="assets/images/nfc-web-39-5937.png" alt="NFC web 主页设计">
+
+    <div class="img-wrapper">
+        <!-- 
+           ⚠️ 注意事项：
+           1. src="./images/..." 表示图片在当前 HTML 文件同级的 images 文件夹内。
+           2. 请确认您的图片后缀是 .png, .jpg 还是 .jpeg，下面代码默认写了 .png。
+        -->
+        <img src="./images/nfc-web-39-5937.png" 
+             alt="NFC Web 示意图" 
+             class="responsive-img">
     </div>
-  </div>
+
 </body>
 </html>
-
