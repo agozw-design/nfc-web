@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CHAT.PREP</title>
+  <style>
+    /* 基础与重置 */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: auto; min-height: 100%; }
+    body { margin: 0; color: #303030; background: #ffffff; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+
+    /* 字体：尽可能匹配 Figma（若未安装将回退） */
+    @font-face {
+      font-family: 'Alimama FangYuanTi VF';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('./fonts/KvTwdh5Ol1s2.woff2') format('woff2-variations'),
+           url('./fonts/KvTwdh5Ol1s2.woff') format('woff'),
+           url('./fonts/AlimamaFangYuanTiVF-Thin-2.ttf') format('truetype');
+    }
+    :root {
+      --c-bg-dim: #f3f3f3;
+      --c-bg-card: #fdfdfd;
+      --c-bg-card-2: #fcfcfc;
+      --c-brand: #74625f;
+      --c-text: #303030;
+      --c-text-weak: #797979;
+      --c-text-muted: #b6b6b6;
+      --radius-12: 12px;
+      --radius-99: 99px;
+      --w-page: 648px;
+    }
+
+    body { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .font-alimama { font-family: "Alimama FangYuanTi VF", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
+    .axis-bevl-1 { font-variation-settings: 'BEVL' 1; }
+    .axis-bevl-80 { font-variation-settings: 'BEVL' 80; }
+    .axis-bevl-100 { font-variation-settings: 'BEVL' 100; }
+
+
+    /* 页面主容器 */
+    .page { width: var(--w-page); margin: 0 auto; padding-top: 0; padding-bottom: 0; display: flex; flex-direction: column; gap: 24px; }
+
+    /* 顶部 Header */
+    .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; }
+    .header-left, .header-mid, .header-right { display: flex; align-items: center; }
+    .header-left { gap: 8px; cursor: pointer; }
+    .header-mid { gap: 8px; }
+    .header-right { gap: 4px; }
+
+    .addr-bar { height: 12px; width: 234px; background: #ffffff; border-radius: var(--radius-99); padding-left: 12px; padding-right: 2px; display: flex; align-items: center; justify-content: space-between; }
+    .addr-text { font-size: 6px; color: #303030; line-height: 1; font-style: normal; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
+    .collect { font-size: 12px; white-space: nowrap; }
+
+    /* LOGO + 欢迎区 */
+    .welcome-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 14px; position: relative; }
+    .help-decoration { position: absolute; right: 94px; top: 64px; z-index: 10; }
+    .logo-stack { display: flex; flex-direction: column; align-items: center; gap: 14px; height: 96px; width: 192px; }
+    .divider { width: 100%; height: 2px; background: #000000; display: block; }
+
+    .welcome-bar { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .welcome-row { width: 100%; color: #303030; display: flex; align-items: center; justify-content: space-between; }
+    .welcome-row .left, .welcome-row .mid, .welcome-row .right { white-space: nowrap; }
+    .welcome-stats { display: flex; gap: 32px; align-items: center; font-size: 8px; color: #000; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
+
+    /* 三列主区域 */
+    .main-cols { display: flex; gap: 20px; align-items: stretch; padding: 0 14px; }
+    .col-left, .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 100%; }
+    .col-mid { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+
+    .chip-title { background: #fdfdfd; height: 20px; border-radius: var(--radius-99); display: flex; align-items: center; padding: 2px 6px; width: max-content; }
+    .chip-title .row { width: 100%; display: flex; align-items: flex-end; justify-content: space-between; color: var(--c-brand); }
+    .chip-title .row .big { font-size: 12px; }
+    .chip-title .row .sub { font-size: 6px; }
+
+    .hot-list { display: flex; flex-direction: column; gap: 4px; font-size: 8px; color: #303030; width: max-content; }
+    .hot-list > div { white-space: nowrap; }
+
+    .menu-list { display: flex; flex-direction: column; gap: 8px; }
+    .menu-item { display: flex; align-items: flex-start; gap: 6px; color: #303030; font-size: 8px; white-space: nowrap; }
+
+    .post-card { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 12px 8px; display: flex; flex-direction: column; gap: 4px; align-items: stretch; }
+    .post-header { display: flex; align-items: flex-end; justify-content: space-between; }
+    .post-title { color: #303030; font-size: 9px; white-space: nowrap; }
+    .post-body { display: flex; flex-direction: column; gap: 3px; }
+    .post-excerpt { color: var(--c-text-muted); line-height: 8px; font-size: 5.4px; }
+    .post-footer { display: flex; align-items: center; justify-content: space-between; font-size: 5.4px; }
+    .post-footer .ellipsis { color: var(--c-text-muted); }
+    .post-footer .author { color: var(--c-text-weak); }
+
+    .pill { background: var(--c-bg-dim); border-radius: var(--radius-99); padding: 10px 8px; font-size: 7px; color: #303030; }
+
+    /* 右侧信息卡 */
+    .info-chip { background: var(--c-bg-card-2); border-radius: var(--radius-99); height: 20px; width: max-content; display: flex; align-items: center; padding: 2px 6px; }
+    .info-chip .row { width: max-content; display: flex; align-items: flex-end; justify-content: space-between; color: var(--c-brand); }
+
+    .profile { display: flex; flex-direction: column; align-items: center; gap: 10px; width: max-content; }
+    .avatar-card { background: #fefefe; border-radius: var(--radius-99); height: 91.08px; width: 91.08px; display: flex; align-items: flex-end; justify-content: center; padding: 0 24px; }
+
+    .info-list { width: max-content; display: flex; flex-direction: column; gap: 8px; }
+    .info-item { background: var(--c-bg-card); border-radius: var(--radius-12); height: 20px; display: flex; align-items: center; padding: 4px 8px; width: max-content; }
+    .info-item .row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+    /* 页脚区 */
+    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px; margin-bottom: 0; }
+    .footer-row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+    /* 细节文字尺寸（按 Figma 标注）*/
+    .t6 { font-size: 6px; }
+    .t7 { font-size: 7px; }
+    .t8 { font-size: 8px; }
+    .t9 { font-size: 9px; }
+    .t12 { font-size: 12px; }
+    .fw-sb { font-weight: 600; }
+    .fw-b { font-weight: 700; }
+    .fw-m { font-weight: 500; }
+    .center { text-align: center; }
+    .nowrap { white-space: nowrap; }
+    /* 固定宽度自适应缩放容器（保持 648px 版心，窄屏自动等比缩放）*/
+    #page-wrapper { width: 100%; display: flex; justify-content: center; position: relative; }
+    
+    /* 为被缩放的主容器保留原始布局宽度 */
+    .page { will-change: transform; }
+
+    /* 字体内嵌预留（请提供 WOFF2 文件或许可使用 CDN，我将把字体以 base64 内嵌）
+    @font-face {
+      font-family: 'Alimama FangYuanTi VF';
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+      src: url('data:font/woff2;base64,/* TODO: 在此粘贴 AlimamaFangYuanTiVF.woff2 的 base64 */') format('woff2-variations');
+    }
+    */
+    #help-card{cursor:pointer;} #gossip-card{cursor:pointer;} #chat-card{cursor:pointer;}
+    /* Restore col-left per Figma (fixed width and full-width headers/lists) */
+    .col-left { width: max-content; padding: 10px 8px; }
+        .col-left .chip-title { width: 100%; }
+    .col-left .menu-list { width: max-content; }
+    .col-left .hot-list { width: max-content; }
+
+    /* Restore col-right per Figma (fixed width + consistent inner stretch) */
+    .col-right { width: 120px; padding: 10px 8px; }
+    .col-right .info-chip,
+    .col-right .info-chip .row,
+    .col-right .profile,
+    .col-right .info-list,
+    .col-right .info-item { width: 100%; }
+    /* Force size for specific classes */
+    .font-alimama.axis-bevl-100.t9.fw-normal.mid,
+    .font-alimama.axis-bevl-100 { font-size: 12px !important; }
+    /* Override for left/right t6 to 6px */
+    .font-alimama.axis-bevl-100.t6.fw-m.right,
+    .font-alimama.axis-bevl-100.t6.fw-m.left { font-size: 6px !important; }
+    /* Spacing: chip-title -> list = 14px (all sections) */
+    .col-left .chip-title + .hot-list,
+    .col-left .chip-title + .menu-list { margin-top: 14px; }
+  </style>
+</head>
+<body>
+
+  <div id="page-wrapper"><main class="page" id="page-scale" data-name="CHAT.PREP-HOME" data-node-id="43:17">
+    <!-- Header -->
+    <header class="header" data-name="Header" data-node-id="44:1715">
+      <div class="header-left" data-node-id="44:1714">
+        <img alt="容器图标" width="16" height="16" src="./images/arrow.svg" />
+        <img alt="logo1" width="53" height="10" src="./images/offtherecord.svg" />
+      </div>
+      <div class="header-mid" data-node-id="44:1704">
+        <div class="addr-bar" data-node-id="44:1702">
+          <span class="addr-text">HTTPS://WWW.PREPSCHOOL.COM</span>
+          <img alt="猫爪" width="9.72" height="9.72" src="./images/paw.svg" />
+        </div>
+        <img alt="鼠标" width="6" height="12" src="./images/cursor.svg" />
+      </div>
+      <div class="header-right" data-node-id="44:1707">
+        <img alt="星星" width="10" height="10" src="./images/star.svg" />
+        <span class="font-alimama axis-bevl-1 collect">收藏本站</span>
+      </div>
+    </header>
+
+    <!-- 欢迎区 -->
+    <section class="welcome-wrap" data-node-id="44:1716">
+      <img class="help-decoration" src="./images/gossip-up.svg" alt="gossip decoration" />
+      <div class="logo-stack" data-node-id="44:1672">
+        <img alt="LOGO" width="36" height="36" src="./images/LOGO.png" />
+        <img alt="Union" width="192.522" height="46.646" src="./images/title-up.svg" />
+      </div>
+
+      <div class="welcome-bar" data-node-id="44:1693">
+        <div class="welcome-row" data-node-id="44:1691">
+          <span class="font-alimama axis-bevl-100 t6 fw-m left">· 欢迎来到预备校论坛 ·</span>
+          <span class="font-alimama axis-bevl-100 t9 fw-normal mid">预备校论坛</span>
+          <span class="font-alimama axis-bevl-100 t6 fw-m right">· 请严格遵守论坛坛规 ·</span>
+        </div>
+        <div class="divider" aria-hidden="true"></div>
+        <div class="welcome-stats" data-node-id="44:1690">
+          <span>今日上线人数：888</span>
+          <span>目前上线人数：346</span>
+          <span>昨日新增贴数：289</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三列主内容 -->
+    <section class="main-cols" data-node-id="46:1565">
+      <!-- 左列 -->
+      <aside class="col-left" data-node-id="46:1566">
+        <!-- 今日热点 -->
+        <div>
+          <div class="chip-title font-alimama axis-bevl-1" data-node-id="46:1568">
+            <div class="row">
+              <span class="big">今日热点</span>
+              <span class="sub">HOT TOPIC</span>
+            </div>
+          </div>
+          <div class="hot-list font-alimama axis-bevl-80 t8" data-node-id="46:1572">
+            <div>【求助】和朋友在一起时……</div>
+            <div>【八卦】校外实践课有两个同学…</div>
+            <div>【闲聊】有没有谁看到表白墙……</div>
+            <div>【种草】谁能出绝赞非售卖周边！</div>
+            <div>【招募】寻找苦于智齿同学……</div>
+            <div>【招募】校庆志愿者</div>
+          </div>
+        </div>
+
+        <!-- 个人群组 -->
+        <div>
+          <div class="chip-title font-alimama axis-bevl-1" data-node-id="46:1580">
+            <div class="row">
+              <span class="big">个人群组</span>
+              <span class="sub">YOUR GROUP</span>
+            </div>
+          </div>
+          <div class="menu-list" data-node-id="46:1584">
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>怎么今天又在买谷</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>绝美爱情品鉴大师</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>今天吃什么投票</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>老师我要麦麦配送员</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>CHAT.PREP管理组</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>匿名树洞</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 论坛分区 -->
+        <div>
+          <div class="chip-title font-alimama axis-bevl-1" data-node-id="46:1604">
+            <div class="row">
+              <span class="big">论坛分区</span>
+              <span class="sub">FORUM ZONE</span>
+            </div>
+          </div>
+          <div class="menu-list" data-node-id="46:1608">
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>首页</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>求助</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>八卦</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>闲聊</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>种草</span>
+            </div>
+            <div class="menu-item font-alimama axis-bevl-80 t8">
+              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <span>邀请</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 中列 帖子详情 -->
+      <section class="col-mid" data-node-id="46:3359">
+        <!-- 帖子标题 -->
+        <div class="pill" style="padding: 10px 12px; width: 100%; height: auto; background-color: var(--c-bg-dim); border-radius: var(--radius-99);">
+          <p class="font-alimama fw-sb" style="margin: 0; font-size: 10px; color: var(--c-text); white-space: nowrap;">【八卦】校外实践课有两个同学掰玉米掰得飞快…这是正常AO手速吗</p>
+        </div>
+
+        <!-- 帖子内容 -->
+        <div class="post-card" style="gap: 24px;">
+          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+            <p style="margin: 0;">楼主是新生。</p>
+            <p style="margin: 0;">实践课老师前段时间安排了"农作物基础处理"体验课，是和高二高三一起上的。我和朋友分到的学习任务是掰玉米——天啊玉米真的很难掰！本来以为这节课会非常无聊，结果我看到前排有对AO掰得飞快……真的飞快。</p>
+            <p style="margin: 0;">感觉楼主这门课后半程的时间全都是在偷偷观察他们。</p>
+            <p style="margin: 0;">O同学动作非常熟练，而且很有干劲；A看起来虽然有点很不耐烦的样子（不过大家貌似都见怪不怪），但是扛玉米的样子又很认真，有点反差呢。感觉他们两个像真的掰过玉米的样子，很好奇是不是私下练习过……大家不是刚刚才上这门课吗……</p>
+            <p style="margin: 0;">他们组合搭配起来速度好快……我们组比别组的进度快多了……真的是感恩……</p>
+            <p style="margin: 0;">谢天谢地……楼主积善行德终于遇到善良的掰玉米菩萨和臭脸的掰玉米菩萨助力了……</p>
+            <p style="margin: 0;">后来楼主在一些公共课也遇到过他们，大多数时候是O一个人来上，很少见到A，不过每次A来的时候都有给O带牛角包（观察了一下是蓝玻璃的）。O看起来吃得很香，很种草了，后来楼主也去吃了，好吃，有品。</p>
+            <p style="margin: 0;">是的，这个帖子最后变成了一个种草贴。</p>
+            <p style="margin: 0;">谢谢二位牛角包推广大使。</p>
+          </div>
+          <p class="font-alimama" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">发帖人：匿名｜标签：八卦</p>
+        </div>
+
+        <!-- 评论区 -->
+        <div class="post-card">
+          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+            <p style="margin: 0;">亲爱的楼主老师，我知道你说的是谁。</p>
+            <p style="margin: 0;">您感兴趣的话，欢迎私信，我将给您发送我收集的999+篇□□和□□宝宝的甜蜜二三事资源包。</p>
+          </div>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">1F TEACHER.THREE3NINE</p>
+        </div>
+
+        <div class="post-card">
+          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+            <p style="margin: 0;">一看蓝玻璃就解码了，预备校唯爱蓝玻璃牛角包的自然是□□宝宝。</p>
+            <p style="margin: 0;">不过这不算什么，上次我看到□□□从蓝玻璃配送员那里接过了半米高的牛角包，我：OK FINE。</p>
+            <p style="margin: 0;">请看VCR：<span class="font-alimama fw-b" style="color: #923d3d;">【种草】谁下单了88个蓝玻璃的牛角包，路过看到配送员带着这一大袋子震惊。</span></p>
+          </div>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">2F 这是小树宝宝的正面</p>
+        </div>
+
+        <div class="post-card">
+          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+            <p style="margin: 0;">他们之前好像有段时间去山里玩了（？他们就提前练习了吧（我造谣的）。</p>
+            <p style="margin: 0;">总之是他们的话，真是不奇怪（。）</p>
+          </div>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">3F GUWEN99</p>
+        </div>
+
+        <div class="post-card">
+          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+            <p style="margin: 0;">之前有次课间看到□□□在拍睡着的□□……</p>
+            <p style="margin: 0;">冒死偷偷地看了一眼，笑死，□□□拍了张外星人宝宝。</p>
+          </div>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">4F 匿名</p>
+        </div>
+
+        <div class="post-card">
+          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+            <p style="margin: 0;">下学期我们也要上实践课了……不知道还有没有掰玉米这个环节。</p>
+            <p style="margin: 0;">建议你和你朋友一起去195院做一次“个体匹配度检测”。</p>
+          </div>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">5F 接玉米菩萨</p>
+        </div>
+      </section>
+
+
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer" data-node-id="46:1718">
+      <img alt="gossip-bottom" src="./images/gossip-bottom.svg" />
+      <div class="footer-row">
+        <div style="width:138.6px; height:28.44px; overflow:hidden;">
+          <img alt="199" src="./images/decoration-left.svg" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <img alt="gossip-title" src="./images/gossip-title.svg" />
+        <div style="width:138.6px; height:28.44px; overflow:hidden;">
+          <img alt="200" src="./images/decoration-right.svg" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+      </div>
+    </footer>
+  </main></div></div>
+  <script>
+    (function () {
+      const DESIGN_WIDTH = 648;
+      const wrapper = document.getElementById('page-wrapper');
+      const pageScale = document.getElementById('page-scale');
+
+      function applyScale() {
+        const ww = window.innerWidth || document.documentElement.clientWidth;
+        const scale = ww / DESIGN_WIDTH;
+        
+        // 临时移除transform来测量真实高度
+        pageScale.style.transform = 'none';
+        const realHeight = pageScale.offsetHeight;
+        
+        // 应用缩放
+        pageScale.style.transformOrigin = 'top center';
+        pageScale.style.transform = 'scale(' + scale + ')';
+        
+        // 设置wrapper高度为缩放后的高度
+        wrapper.style.height = (realHeight * scale) + 'px';
+      }
+
+      window.addEventListener('resize', applyScale, { passive: true });
+      window.addEventListener('orientationchange', applyScale, { passive: true });
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyScale, { once: true });
+      } else {
+        applyScale();
+      }
+    })();
+  </script>
+  <script>
+    (function(){
+      function bindCard(id, href){
+        var el = document.getElementById(id);
+        if(!el) return;
+        var go = function(){ window.location.href = href; };
+        el.addEventListener('click', go);
+        el.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' ' || e.code === 'Space'){ e.preventDefault(); go(); }
+        });
+      }
+      bindCard('help-card', 'help.html');
+      bindCard('gossip-card', 'gossip.html');
+      bindCard('chat-card', 'chat.html');
+      
+      // 添加返回首页功能
+      var headerLeft = document.querySelector('.header-left');
+      if(headerLeft) {
+        headerLeft.addEventListener('click', function() {
+          window.location.href = 'CHAT.PREP.html';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
+
+
+
