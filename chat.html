@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CHAT.PREP</title>
+  <!-- 预加载关键字体 -->
+  <link rel="preload" href="./assets/AlimamaFangYuanTiVF-Thin-2.woff" as="font" type="font/woff" crossorigin="anonymous" />
   <style>
     /* 基础与重置 */
     *, *::before, *::after { box-sizing: border-box; }
@@ -17,7 +19,8 @@
       font-style: normal;
       font-weight: 100 900;
       font-display: swap;
-      src: url('./assets/AlimamaFangYuanTiVF-Thin-2.ttf') format('truetype');
+      src: local('Alimama FangYuanTi VF'),
+           url('./assets/AlimamaFangYuanTiVF-Thin-2.woff') format('woff');
     }
     :root {
       --c-bg-dim: #f3f3f3;
@@ -40,7 +43,16 @@
 
 
     /* 页面主容器 */
-    .page { width: var(--w-page); margin: 0 auto; padding-top: 0; padding-bottom: 0; display: flex; flex-direction: column; gap: 24px; }
+    .page { width: var(--w-page); max-width: 100%; margin: 0 auto; padding-top: 0; padding-bottom: 0; display: flex; flex-direction: column; gap: 24px; }
+    
+    /* 移动端适配 */
+    @media (max-width: 648px) {
+      .page { width: 100%; padding: 0 12px; }
+      .main-cols { flex-direction: column; }
+      .col-left, .col-mid, .col-right { width: 100% !important; max-width: 100%; height: auto !important; }
+      .welcome-wrap { padding: 0 12px; }
+      #page-wrapper { overflow-x: hidden; }
+    }
 
     /* 顶部 Header */
     .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; }
@@ -394,6 +406,14 @@
 
       function applyScale() {
         const ww = window.innerWidth || document.documentElement.clientWidth;
+        
+        // 在移动端（宽度<=648px）不使用缩放，使用响应式布局
+        if (ww <= DESIGN_WIDTH) {
+          pageScale.style.transform = 'none';
+          wrapper.style.height = 'auto';
+          return;
+        }
+        
         const scale = ww / DESIGN_WIDTH;
         
         // 临时移除transform来测量真实高度
