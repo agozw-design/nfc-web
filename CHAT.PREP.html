@@ -4,26 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CHAT.PREP</title>
-
   <style>
     /* 基础与重置 */
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: auto; min-height: 100%; }
+    html, body { height: 100%; }
+    /* 防止缩放后左右留白 */
+    #page-wrapper { width: 100vw; overflow-x: hidden; }
     body { margin: 0; color: #303030; background: #ffffff; overflow-x: hidden; }
     img { display: block; max-width: 100%; }
 
-    /* 字体：延迟加载优化 */
+    /* 字体：尽可能匹配 Figma（若未安装将回退） */
     @font-face {
       font-family: 'Alimama FangYuanTi VF';
       font-style: normal;
       font-weight: 100 900;
       font-display: swap;
-      src: url('./assets/AlimamaFangYuanTiVF-Thin-2.woff') format('woff');
-    }
-    
-    /* 初始状态使用系统字体，避免阻塞渲染 */
-    body.font-loading .font-alimama {
-      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      src: url('./fonts/KvTwdh5Ol1s2.woff2') format('woff2-variations'),
+           url('./fonts/KvTwdh5Ol1s2.woff') format('woff');
     }
     :root {
       --c-bg-dim: #f3f3f3;
@@ -39,14 +36,14 @@
     }
 
     body { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .font-alimama { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", "Alimama FangYuanTi VF", sans-serif; }
+    .font-alimama { font-family: "Alimama FangYuanTi VF", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
     .axis-bevl-1 { font-variation-settings: 'BEVL' 1; }
     .axis-bevl-80 { font-variation-settings: 'BEVL' 80; }
     .axis-bevl-100 { font-variation-settings: 'BEVL' 100; }
 
 
     /* 页面主容器 */
-    .page { width: var(--w-page); margin: 0 auto; padding-top: 0; padding-bottom: 0; display: flex; flex-direction: column; gap: 24px; }
+    .page { width: var(--w-page); margin: 0 auto; padding-top: 0; display: flex; flex-direction: column; gap: 24px; }
 
     /* 顶部 Header */
     .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; }
@@ -70,8 +67,8 @@
     .welcome-stats { display: flex; gap: 32px; align-items: center; font-size: 8px; color: #000; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
 
     /* 三列主区域 */
-    .main-cols { display: flex; gap: 20px; align-items: stretch; padding: 0 14px; }
-    .col-left, .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 100%; }
+    .main-cols { display: flex; gap: 20px; align-items: flex-start; padding: 0 14px; }
+    .col-left, .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 745px; }
     .col-mid { width: 308.72px; display: flex; flex-direction: column; gap: 5px; }
 
     .chip-title { background: #fdfdfd; height: 20px; border-radius: var(--radius-99); display: flex; align-items: center; padding: 2px 6px; width: max-content; }
@@ -108,7 +105,7 @@
     .info-item .row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
 
     /* 页脚区 */
-    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px; margin-bottom: 0; }
+    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px; }
     .footer-row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
 
     /* 细节文字尺寸（按 Figma 标注）*/
@@ -431,53 +428,26 @@
     </footer>
   </main></div></div>
   <script>
-    // 字体延迟加载优化
-    (function() {
-      document.body.classList.add('font-loading');
-      
-      // 使用requestIdleCallback在浏览器空闲时加载字体
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(loadFont);
-      } else {
-        setTimeout(loadFont, 1);
-      }
-      
-      function loadFont() {
-        const font = new FontFace(
-          'Alimama FangYuanTi VF',
-          'url(./assets/AlimamaFangYuanTiVF-Thin-2.woff) format("woff")'
-        );
-        
-        font.load().then(function(loadedFont) {
-          document.fonts.add(loadedFont);
-          document.body.classList.remove('font-loading');
-        }).catch(function(error) {
-          console.warn('字体加载失败，使用系统字体', error);
-          document.body.classList.remove('font-loading');
-        });
-      }
-    })();
-  </script>
-  <script>
     (function () {
       const DESIGN_WIDTH = 648;
       const wrapper = document.getElementById('page-wrapper');
       const pageScale = document.getElementById('page-scale');
 
+      let baseHeight;
+      function measureBaseHeight() {
+        const prev = pageScale.style.transform;
+        pageScale.style.transform = 'none';
+        baseHeight = pageScale.offsetHeight;
+        pageScale.style.transform = prev;
+      }
+
       function applyScale() {
+        if (!baseHeight) measureBaseHeight();
         const ww = window.innerWidth || document.documentElement.clientWidth;
         const scale = ww / DESIGN_WIDTH;
-        
-        // 临时移除transform来测量真实高度
-        pageScale.style.transform = 'none';
-        const realHeight = pageScale.offsetHeight;
-        
-        // 应用缩放（包括移动端）
         pageScale.style.transformOrigin = 'top center';
         pageScale.style.transform = 'scale(' + scale + ')';
-        
-        // 设置wrapper高度为缩放后的高度
-        wrapper.style.height = (realHeight * scale) + 'px';
+        wrapper.style.height = (baseHeight * scale) + 'px';
       }
 
       window.addEventListener('resize', applyScale, { passive: true });
