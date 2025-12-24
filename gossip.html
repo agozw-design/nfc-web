@@ -35,6 +35,9 @@
     }
 
     body { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body.font-loading .font-alimama {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
     .font-alimama { font-family: "AlimamaFangYuanTi", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
     .axis-bevl-1 { font-variation-settings: 'BEVL' 1; }
     .axis-bevl-80 { font-variation-settings: 'BEVL' 80; }
@@ -136,15 +139,6 @@
     /* 为被缩放的主容器保留原始布局宽度 */
     .page { will-change: transform; }
 
-    /* 字体内嵌预留（请提供 WOFF2 文件或许可使用 CDN，我将把字体以 base64 内嵌）
-    @font-face {
-      font-family: 'Alimama FangYuanTi VF';
-      font-weight: 100 900;
-      font-style: normal;
-      font-display: swap;
-      src: url('data:font/woff2;base64,/* TODO: 在此粘贴 AlimamaFangYuanTiVF.woff2 的 base64 */') format('woff2-variations');
-    }
-    */
     #help-card{cursor:pointer;} #gossip-card{cursor:pointer;} #chat-card{cursor:pointer;}
     /* Restore col-left per Figma (fixed width and full-width headers/lists) */
     .col-left { width: max-content; padding: 10px 8px; }
@@ -181,28 +175,28 @@
     <!-- Header -->
     <header class="header" data-name="Header" data-node-id="44:1715">
       <div class="header-left" data-node-id="44:1714">
-        <img alt="容器图标" width="16" height="16" src="./images/arrow.svg" />
-        <img alt="logo1" width="53" height="10" src="./images/offtherecord.svg" />
+        <img loading="lazy" alt="容器图标" width="16" height="16" src="./images/arrow.svg" />
+        <img loading="lazy" alt="logo1" width="53" height="10" src="./images/offtherecord.svg" />
       </div>
       <div class="header-mid" data-node-id="44:1704">
         <div class="addr-bar" data-node-id="44:1702">
           <span class="addr-text">HTTPS://WWW.PREPSCHOOL.COM</span>
-          <img alt="猫爪" width="9.72" height="9.72" src="./images/paw.svg" />
+          <img loading="lazy" alt="猫爪" width="9.72" height="9.72" src="./images/paw.svg" />
         </div>
-        <img alt="鼠标" width="6" height="12" src="./images/cursor.svg" />
+        <img loading="lazy" alt="鼠标" width="6" height="12" src="./images/cursor.svg" />
       </div>
       <div class="header-right" data-node-id="44:1707">
-        <img alt="星星" width="10" height="10" src="./images/star.svg" />
+        <img loading="lazy" alt="星星" width="10" height="10" src="./images/star.svg" />
         <span class="font-alimama axis-bevl-1 collect">收藏本站</span>
       </div>
     </header>
 
     <!-- 欢迎区 -->
     <section class="welcome-wrap" data-node-id="44:1716">
-      <img class="help-decoration" src="./images/gossip-up.svg" alt="gossip decoration" />
+      <img loading="lazy" class="help-decoration" src="./images/gossip-up.svg" alt="gossip decoration" />
       <div class="logo-stack" data-node-id="44:1672">
-        <img alt="LOGO" width="36" height="36" src="./images/LOGO.png" />
-        <img alt="Union" width="192.522" height="46.646" src="./images/title-up.svg" />
+        <img loading="lazy" alt="LOGO" width="36" height="36" src="./images/LOGO.png" />
+        <img loading="lazy" alt="Union" width="192.522" height="46.646" src="./images/title-up.svg" />
       </div>
 
       <div class="welcome-bar" data-node-id="44:1693">
@@ -252,27 +246,27 @@
           </div>
           <div class="menu-list" data-node-id="46:1584">
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>怎么今天又在买谷</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>绝美爱情品鉴大师</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>今天吃什么投票</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>老师我要麦麦配送员</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>CHAT.PREP管理组</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>匿名树洞</span>
             </div>
           </div>
@@ -288,27 +282,27 @@
           </div>
           <div class="menu-list" data-node-id="46:1608">
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>首页</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>求助</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>八卦</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>闲聊</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>种草</span>
             </div>
             <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
+              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
               <span>邀请</span>
             </div>
           </div>
@@ -386,30 +380,25 @@
 
     <!-- 页脚 -->
     <footer class="footer" data-node-id="46:1718">
-      <img alt="gossip-bottom" src="./images/gossip-bottom.svg" style="transform: scale(0.7); transform-origin: center;" />
+      <img loading="lazy" alt="gossip-bottom" src="./images/gossip-bottom.svg" style="transform: scale(0.7); transform-origin: center;" />
       <div class="footer-row">
         <div style="flex: 1; height:20px; display:flex; align-items:center; justify-content:flex-start;">
-          <img alt="199" src="./images/decoration-left.svg" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;" />
+          <img loading="lazy" alt="199" src="./images/decoration-left.svg" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;" />
         </div>
         <div style="flex-shrink: 0; width: auto; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-          <img alt="gossip-title" src="./images/gossip-title.svg" style="width:auto; height:auto; max-width:none; transform: scaleX(0.7); transform-origin: center; display:block;" />
+          <img loading="lazy" alt="gossip-title" src="./images/gossip-title.svg" style="width:auto; height:auto; max-width:none; transform: scaleX(0.7); transform-origin: center; display:block;" />
         </div>
         <div style="flex: 1; height:20px; display:flex; align-items:center; justify-content:flex-end;">
-          <img alt="200" src="./images/decoration-right.svg" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;" />
+          <img loading="lazy" alt="200" src="./images/decoration-right.svg" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;" />
         </div>
       </div>
     </footer>
   </main></div></div>
   <script>
-    // 字体延迟加载优化
+    // 字体延迟加载：立即设置类，但延迟加载字体
     (function() {
-      document.body.classList.add('font-loading');
-      
-      // 使用requestIdleCallback在浏览器空闲时加载字体
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(loadFont);
-      } else {
-        setTimeout(loadFont, 1);
+      if (document.body) {
+        document.body.classList.add('font-loading');
       }
       
       function loadFont() {
@@ -420,28 +409,43 @@
         
         font.load().then(function(loadedFont) {
           document.fonts.add(loadedFont);
-          document.body.classList.remove('font-loading');
+          if (document.body) document.body.classList.remove('font-loading');
         }).catch(function(error) {
           console.warn('字体加载失败，使用系统字体', error);
-          document.body.classList.remove('font-loading');
+          if (document.body) document.body.classList.remove('font-loading');
         });
+      }
+      
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadFont, { timeout: 2000 });
+      } else {
+        setTimeout(loadFont, 100);
       }
     })();
   </script>
   <script>
+    // 核心缩放脚本：优化执行时机
     (function () {
-      const DESIGN_WIDTH = 648;
       const wrapper = document.getElementById('page-wrapper');
       const pageScale = document.getElementById('page-scale');
+      if (!wrapper || !pageScale) return;
 
       function applyScale() {
-        // 不再使用整体缩放，保持原始比例，依赖CSS控制宽度
-        pageScale.style.transform = 'none';
-        wrapper.style.height = 'auto';
+        requestAnimationFrame(function() {
+          pageScale.style.transform = 'none';
+          wrapper.style.height = 'auto';
+        });
       }
 
-      window.addEventListener('resize', applyScale, { passive: true });
+      let resizeTimer;
+      function debouncedApplyScale() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(applyScale, 16);
+      }
+
+      window.addEventListener('resize', debouncedApplyScale, { passive: true });
       window.addEventListener('orientationchange', applyScale, { passive: true });
+      
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', applyScale, { once: true });
       } else {
@@ -450,26 +454,34 @@
     })();
   </script>
   <script>
+    // 非核心导航脚本：延迟执行，不阻塞渲染
     (function(){
-      function bindCard(id, href){
-        var el = document.getElementById(id);
-        if(!el) return;
-        var go = function(){ window.location.href = href; };
-        el.addEventListener('click', go);
-        el.addEventListener('keydown', function(e){
-          if(e.key === 'Enter' || e.key === ' ' || e.code === 'Space'){ e.preventDefault(); go(); }
-        });
+      function initNavigation() {
+        function bindCard(id, href){
+          var el = document.getElementById(id);
+          if(!el) return;
+          var go = function(){ window.location.href = href; };
+          el.addEventListener('click', go);
+          el.addEventListener('keydown', function(e){
+            if(e.key === 'Enter' || e.key === ' ' || e.code === 'Space'){ e.preventDefault(); go(); }
+          });
+        }
+        bindCard('help-card', 'help.html');
+        bindCard('gossip-card', 'gossip.html');
+        bindCard('chat-card', 'chat.html');
+        
+        var headerLeft = document.querySelector('.header-left');
+        if(headerLeft) {
+          headerLeft.addEventListener('click', function() {
+            window.location.href = 'CHAT.PREP.html';
+          });
+        }
       }
-      bindCard('help-card', 'help.html');
-      bindCard('gossip-card', 'gossip.html');
-      bindCard('chat-card', 'chat.html');
       
-      // 添加返回首页功能
-      var headerLeft = document.querySelector('.header-left');
-      if(headerLeft) {
-        headerLeft.addEventListener('click', function() {
-          window.location.href = 'CHAT.PREP.html';
-        });
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initNavigation, { once: true });
+      } else {
+        setTimeout(initNavigation, 0);
       }
     })();
   </script>
