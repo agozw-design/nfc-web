@@ -10,20 +10,16 @@
     /* 基础与重置 */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; }
-    #page-wrapper { width: 100vw; overflow-x: hidden; }
+    #page-wrapper { width: 100%; overflow-x: hidden; }
     body { margin: 0; color: #303030; background: #ffffff; overflow-x: hidden; }
     img { display: block; max-width: 100%; }
 
-    /* 字体：从assets文件夹读取（可选加载，优先使用系统字体） */
+    /* 阿里妈妈方圆体 - 官方 CDN 引用示例 */
     @font-face {
-      font-family: 'Alimama FangYuanTi VF';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: optional;
-      src: local('Alimama FangYuanTi VF'),
-           local('阿里妈妈方圆体'),
-           url('./assets/AlimamaFangYuanTiVF-Thin-2.woff') format('woff');
-      unicode-range: U+4E00-9FFF, U+3000-303F, U+FF00-FFEF;
+      font-family: 'AlimamaFangYuanTi';
+      src: url('https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff2') format('woff2'),
+           url('https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff') format('woff');
+      font-display: swap; /* 关键：确保字体加载时先显示系统字体，不留白 */
     }
     :root {
       --c-bg-dim: #f3f3f3;
@@ -39,21 +35,25 @@
     }
 
     body { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .font-alimama { font-family: "Alimama FangYuanTi VF", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
+    .font-alimama { font-family: "AlimamaFangYuanTi", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
     .axis-bevl-1 { font-variation-settings: 'BEVL' 1; }
     .axis-bevl-80 { font-variation-settings: 'BEVL' 80; }
     .axis-bevl-100 { font-variation-settings: 'BEVL' 100; }
 
 
-    /* 页面主容器 */
-    .page { width: var(--w-page); margin: 0 auto; padding-top: 0; padding-bottom: 0; display: flex; flex-direction: column; gap: 24px; }
+    /* 页面主容器：桌面限制最大宽度并居中 */
+    .page { width: var(--w-page); max-width: 800px; margin: 0 auto; padding-top: 0; padding-bottom: 0; display: flex; flex-direction: column; gap: 12px; }
+
+    /* 移动端：贴边显示，不留左右空白 */
+    @media (max-width: 768px) {
+      .page { width: 100%; max-width: 100%; margin: 0; padding-left: 0; padding-right: 0; }
+      #page-wrapper { width: 100%; }
+    }
 
     /* 顶部 Header */
-    .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; }
-    .header-left, .header-mid, .header-right { display: flex; align-items: center; }
-    .header-left { gap: 8px; cursor: pointer; }
-    .header-mid { gap: 8px; }
-    .header-right { gap: 4px; }
+    .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; width: 100%; }
+    .header-left, .header-mid, .header-right { display: flex; align-items: center; transform: scale(0.8); transform-origin: center center; }
+    .header-left { cursor: pointer; }
 
     .addr-bar { height: 12px; width: 234px; background: #ffffff; border-radius: var(--radius-99); padding-left: 12px; padding-right: 2px; display: flex; align-items: center; justify-content: space-between; }
     .addr-text { font-size: 6px; color: #303030; line-height: 1; font-style: normal; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
@@ -61,7 +61,7 @@
 
     /* LOGO + 欢迎区 */
     .welcome-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 14px; position: relative; }
-    .help-decoration { position: absolute; right: 94px; top: 64px; z-index: 10; }
+    .help-decoration { position: absolute; right: 24px; top: 64px; z-index: 10; transform: scale(0.7); transform-origin: top right; }
     .logo-stack { display: flex; flex-direction: column; align-items: center; gap: 14px; height: 96px; width: 192px; }
     .divider { width: 100%; height: 2px; background: #000000; display: block; }
 
@@ -71,31 +71,32 @@
     .welcome-stats { display: flex; gap: 32px; align-items: center; font-size: 8px; color: #000; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
 
     /* 三列主区域 */
-    .main-cols { display: flex; gap: 20px; align-items: stretch; padding: 0 14px; }
-    .col-left, .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 100%; }
-    .col-mid { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .main-cols { display: flex; gap: 8px; align-items: stretch; padding: 0 14px; width: 100%; font-size: 70%; }
+    .col-left { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 100%; flex-shrink: 0; }
+    .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; height: 100%; flex: 1; min-width: 0; }
+    .col-mid { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 
     .chip-title { background: #fdfdfd; height: 20px; border-radius: var(--radius-99); display: flex; align-items: center; padding: 2px 6px; width: max-content; }
     .chip-title .row { width: 100%; display: flex; align-items: flex-end; justify-content: space-between; color: var(--c-brand); }
-    .chip-title .row .big { font-size: 12px; }
-    .chip-title .row .sub { font-size: 6px; }
+    .chip-title .row .big { font-size: 8px; }
+    .chip-title .row .sub { font-size: 4px; }
 
-    .hot-list { display: flex; flex-direction: column; gap: 4px; font-size: 8px; color: #303030; width: max-content; }
+    .hot-list { display: flex; flex-direction: column; gap: 4px; font-size: 6px; color: #303030; width: max-content; }
     .hot-list > div { white-space: nowrap; }
 
     .menu-list { display: flex; flex-direction: column; gap: 8px; }
-    .menu-item { display: flex; align-items: flex-start; gap: 6px; color: #303030; font-size: 8px; white-space: nowrap; }
+    .menu-item { display: flex; align-items: flex-start; gap: 6px; color: #303030; font-size: 6px; white-space: nowrap; }
 
     .post-card { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 12px 8px; display: flex; flex-direction: column; gap: 4px; align-items: stretch; }
     .post-header { display: flex; align-items: flex-end; justify-content: space-between; }
-    .post-title { color: #303030; font-size: 9px; white-space: nowrap; }
+    .post-title { color: #303030; font-size: 6px; white-space: nowrap; }
     .post-body { display: flex; flex-direction: column; gap: 3px; }
-    .post-excerpt { color: var(--c-text-muted); line-height: 8px; font-size: 5.4px; }
-    .post-footer { display: flex; align-items: center; justify-content: space-between; font-size: 5.4px; }
+    .post-excerpt { color: var(--c-text-muted); line-height: 8px; font-size: 4px; }
+    .post-footer { display: flex; align-items: center; justify-content: space-between; font-size: 4px; }
     .post-footer .ellipsis { color: var(--c-text-muted); }
     .post-footer .author { color: var(--c-text-weak); }
 
-    .pill { background: var(--c-bg-dim); border-radius: var(--radius-99); padding: 10px 8px; font-size: 7px; color: #303030; }
+    .pill { background: var(--c-bg-dim); border-radius: var(--radius-99); padding: 10px 8px; font-size: 5px; color: #303030; }
 
     /* 右侧信息卡 */
     .info-chip { background: var(--c-bg-card-2); border-radius: var(--radius-99); height: 20px; width: max-content; display: flex; align-items: center; padding: 2px 6px; }
@@ -109,10 +110,16 @@
     .info-item .row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
 
     /* 页脚区 */
-    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px; margin-bottom: 0; }
-    .footer-row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px; margin-bottom: 0; font-size: 70%; }
+    .footer-row { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0; }
 
     /* 细节文字尺寸（按 Figma 标注）*/
+    .main-cols .t6 { font-size: 4px; }
+    .main-cols .t7 { font-size: 5px; }
+    .main-cols .t8 { font-size: 6px; }
+    .main-cols .t9 { font-size: 6px; }
+    .main-cols .t12 { font-size: 8px; }
+    /* 保持非 main-cols 区域的原始尺寸 */
     .t6 { font-size: 6px; }
     .t7 { font-size: 7px; }
     .t8 { font-size: 8px; }
@@ -145,17 +152,22 @@
     .col-left .menu-list { width: max-content; }
     .col-left .hot-list { width: max-content; }
 
-    /* Restore col-right per Figma (fixed width + consistent inner stretch) */
-    .col-right { width: 120px; padding: 10px 8px; }
+    /* Restore col-right per Figma (adaptive width + consistent inner stretch) */
+    .col-right { padding: 10px 8px; }
     .col-right .info-chip,
     .col-right .info-chip .row,
     .col-right .profile,
     .col-right .info-list,
     .col-right .info-item { width: 100%; }
     /* Force size for specific classes */
+    .main-cols .font-alimama.axis-bevl-100.t9.fw-normal.mid,
+    .main-cols .font-alimama.axis-bevl-100 { font-size: 8px !important; }
+    /* Override for left/right t6 to 4px */
+    .main-cols .font-alimama.axis-bevl-100.t6.fw-m.right,
+    .main-cols .font-alimama.axis-bevl-100.t6.fw-m.left { font-size: 4px !important; }
+    /* 保持非 main-cols 区域的原始尺寸 */
     .font-alimama.axis-bevl-100.t9.fw-normal.mid,
     .font-alimama.axis-bevl-100 { font-size: 12px !important; }
-    /* Override for left/right t6 to 6px */
     .font-alimama.axis-bevl-100.t6.fw-m.right,
     .font-alimama.axis-bevl-100.t6.fw-m.left { font-size: 6px !important; }
     /* Spacing: chip-title -> list = 14px (all sections) */
@@ -307,12 +319,12 @@
       <section class="col-mid" data-node-id="46:3359">
         <!-- 帖子标题 -->
         <div class="pill" style="padding: 10px 12px; width: 100%; height: auto; background-color: var(--c-bg-dim); border-radius: var(--radius-99);">
-          <p class="font-alimama fw-sb" style="margin: 0; font-size: 10px; color: var(--c-text); white-space: nowrap;">【八卦】校外实践课有两个同学掰玉米掰得飞快…这是正常AO手速吗</p>
+          <p class="font-alimama fw-sb" style="margin: 0; font-size: 7px; color: var(--c-text); white-space: nowrap;">【八卦】校外实践课有两个同学掰玉米掰得飞快…这是正常AO手速吗</p>
         </div>
 
         <!-- 帖子内容 -->
         <div class="post-card" style="gap: 24px;">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">楼主是新生。</p>
             <p style="margin: 0;">实践课老师前段时间安排了"农作物基础处理"体验课，是和高二高三一起上的。我和朋友分到的学习任务是掰玉米——天啊玉米真的很难掰！本来以为这节课会非常无聊，结果我看到前排有对AO掰得飞快……真的飞快。</p>
             <p style="margin: 0;">感觉楼主这门课后半程的时间全都是在偷偷观察他们。</p>
@@ -323,49 +335,49 @@
             <p style="margin: 0;">是的，这个帖子最后变成了一个种草贴。</p>
             <p style="margin: 0;">谢谢二位牛角包推广大使。</p>
           </div>
-          <p class="font-alimama" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">发帖人：匿名｜标签：八卦</p>
+          <p class="font-alimama" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">发帖人：匿名｜标签：八卦</p>
         </div>
 
         <!-- 评论区 -->
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">亲爱的楼主老师，我知道你说的是谁。</p>
             <p style="margin: 0;">您感兴趣的话，欢迎私信，我将给您发送我收集的999+篇□□和□□宝宝的甜蜜二三事资源包。</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">1F TEACHER.THREE3NINE</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">1F TEACHER.THREE3NINE</p>
         </div>
 
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">一看蓝玻璃就解码了，预备校唯爱蓝玻璃牛角包的自然是□□宝宝。</p>
             <p style="margin: 0;">不过这不算什么，上次我看到□□□从蓝玻璃配送员那里接过了半米高的牛角包，我：OK FINE。</p>
             <p style="margin: 0;">请看VCR：<span class="font-alimama fw-b" style="color: #923d3d;">【种草】谁下单了88个蓝玻璃的牛角包，路过看到配送员带着这一大袋子震惊。</span></p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">2F 这是小树宝宝的正面</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">2F 这是小树宝宝的正面</p>
         </div>
 
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">他们之前好像有段时间去山里玩了（？他们就提前练习了吧（我造谣的）。</p>
             <p style="margin: 0;">总之是他们的话，真是不奇怪（。）</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">3F GUWEN99</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">3F GUWEN99</p>
         </div>
 
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">之前有次课间看到□□□在拍睡着的□□……</p>
             <p style="margin: 0;">冒死偷偷地看了一眼，笑死，□□□拍了张外星人宝宝。</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">4F 匿名</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">4F 匿名</p>
         </div>
 
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">下学期我们也要上实践课了……不知道还有没有掰玉米这个环节。</p>
             <p style="margin: 0;">建议你和你朋友一起去195院做一次“个体匹配度检测”。</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">5F 接玉米菩萨</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">5F 接玉米菩萨</p>
         </div>
       </section>
 
@@ -374,14 +386,16 @@
 
     <!-- 页脚 -->
     <footer class="footer" data-node-id="46:1718">
-      <img alt="gossip-bottom" src="./images/gossip-bottom.svg" />
+      <img alt="gossip-bottom" src="./images/gossip-bottom.svg" style="transform: scale(0.7); transform-origin: center;" />
       <div class="footer-row">
-        <div style="width:138.6px; height:28.44px; overflow:hidden;">
-          <img alt="199" src="./images/decoration-left.svg" style="width:100%; height:100%; object-fit:cover;" />
+        <div style="flex: 1; height:20px; display:flex; align-items:center; justify-content:flex-start;">
+          <img alt="199" src="./images/decoration-left.svg" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;" />
         </div>
-        <img alt="gossip-title" src="./images/gossip-title.svg" />
-        <div style="width:138.6px; height:28.44px; overflow:hidden;">
-          <img alt="200" src="./images/decoration-right.svg" style="width:100%; height:100%; object-fit:cover;" />
+        <div style="flex-shrink: 0; width: auto; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+          <img alt="gossip-title" src="./images/gossip-title.svg" style="width:auto; height:auto; max-width:none; transform: scaleX(0.7); transform-origin: center; display:block;" />
+        </div>
+        <div style="flex: 1; height:20px; display:flex; align-items:center; justify-content:flex-end;">
+          <img alt="200" src="./images/decoration-right.svg" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;" />
         </div>
       </div>
     </footer>
@@ -400,8 +414,8 @@
       
       function loadFont() {
         const font = new FontFace(
-          'Alimama FangYuanTi VF',
-          'url(./assets/AlimamaFangYuanTiVF-Thin-2.woff) format("woff")'
+          'AlimamaFangYuanTi',
+          'url(https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff2) format("woff2"), url(https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff) format("woff")'
         );
         
         font.load().then(function(loadedFont) {
@@ -421,19 +435,9 @@
       const pageScale = document.getElementById('page-scale');
 
       function applyScale() {
-        const ww = window.innerWidth || document.documentElement.clientWidth;
-        const scale = ww / DESIGN_WIDTH;
-        
-        // 临时移除transform来测量真实高度
+        // 不再使用整体缩放，保持原始比例，依赖CSS控制宽度
         pageScale.style.transform = 'none';
-        const realHeight = pageScale.offsetHeight;
-        
-        // 应用缩放（包括移动端）
-        pageScale.style.transformOrigin = 'top center';
-        pageScale.style.transform = 'scale(' + scale + ')';
-        
-        // 设置wrapper高度为缩放后的高度
-        wrapper.style.height = (realHeight * scale) + 'px';
+        wrapper.style.height = 'auto';
       }
 
       window.addEventListener('resize', applyScale, { passive: true });

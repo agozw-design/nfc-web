@@ -7,20 +7,17 @@
   <style>
     /* 基础与重置 */
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
-    /* 防止缩放后左右留白 */
-    #page-wrapper { width: 100vw; overflow-x: hidden; }
+    html, body { height: auto; min-height: 100%; overflow-y: auto; }
     body { margin: 0; color: #303030; background: #ffffff; overflow-x: hidden; }
     img { display: block; max-width: 100%; }
 
     /* 字体：尽可能匹配 Figma（若未安装将回退） */
+    /* 阿里妈妈方圆体 - 官方 CDN 引用示例 */
     @font-face {
-      font-family: 'Alimama FangYuanTi VF';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url('./fonts/KvTwdh5Ol1s2.woff2') format('woff2-variations'),
-           url('./fonts/KvTwdh5Ol1s2.woff') format('woff');
+      font-family: 'AlimamaFangYuanTi';
+      src: url('https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff2') format('woff2'),
+           url('https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff') format('woff');
+      font-display: swap; /* 关键：确保字体加载时先显示系统字体，不留白 */
     }
     :root {
       --c-bg-dim: #f3f3f3;
@@ -32,18 +29,18 @@
       --c-text-muted: #b6b6b6;
       --radius-12: 12px;
       --radius-99: 99px;
-      --w-page: 648px;
+      --w-page: 608.7px;
     }
 
     body { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .font-alimama { font-family: "Alimama FangYuanTi VF", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
+    .font-alimama { font-family: "AlimamaFangYuanTi", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
     .axis-bevl-1 { font-variation-settings: 'BEVL' 1; }
     .axis-bevl-80 { font-variation-settings: 'BEVL' 80; }
     .axis-bevl-100 { font-variation-settings: 'BEVL' 100; }
 
 
-    /* 页面主容器 */
-    .page { width: var(--w-page); margin: 0 auto; padding-top: 0; display: flex; flex-direction: column; gap: 24px; }
+    /* 页面主容器：固定宽度，用于等比缩放 */
+    .page { width: var(--w-page); margin: 0; padding: 0; display: flex; flex-direction: column; gap: 24px; }
 
     /* 顶部 Header */
     .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; }
@@ -67,8 +64,8 @@
     .welcome-stats { display: flex; gap: 32px; align-items: center; font-size: 8px; color: #000; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
 
     /* 三列主区域 */
-    .main-cols { display: flex; gap: 20px; align-items: flex-start; padding: 0 14px; }
-    .col-left, .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 745px; }
+    .main-cols { display: flex; gap: 8px; align-items: stretch; padding: 0 14px; }
+    .col-left, .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 100%; }
     .col-mid { width: 308.72px; display: flex; flex-direction: column; gap: 5px; }
 
     .chip-title { background: #fdfdfd; height: 20px; border-radius: var(--radius-99); display: flex; align-items: center; padding: 2px 6px; width: max-content; }
@@ -119,21 +116,13 @@
     .fw-m { font-weight: 500; }
     .center { text-align: center; }
     .nowrap { white-space: nowrap; }
-    /* 固定宽度自适应缩放容器（保持 648px 版心，窄屏自动等比缩放）*/
-    #page-wrapper { width: 100%; display: flex; justify-content: center; position: relative; }
+    /* 固定宽度自适应缩放容器（保持 608.7px 版心，窄屏自动等比缩放）*/
+    #page-wrapper { width: 100vw; display: flex; justify-content: flex-start; position: relative; overflow: hidden; padding: 0; margin: 0; height: auto; }
     
     /* 为被缩放的主容器保留原始布局宽度 */
     .page { will-change: transform; }
 
-    /* 字体内嵌预留（请提供 WOFF2 文件或许可使用 CDN，我将把字体以 base64 内嵌）
-    @font-face {
-      font-family: 'Alimama FangYuanTi VF';
-      font-weight: 100 900;
-      font-style: normal;
-      font-display: swap;
-      src: url('data:font/woff2;base64,/* TODO: 在此粘贴 AlimamaFangYuanTiVF.woff2 的 base64 */') format('woff2-variations');
-    }
-    */
+    /* 字体内嵌预留（已改用 CDN 引用，不再需要 base64 内嵌） */
     #help-card{cursor:pointer;} #gossip-card{cursor:pointer;} #chat-card{cursor:pointer;}
     /* Restore col-left per Figma (fixed width and full-width headers/lists) */
     .col-left { width: max-content; padding: 10px 8px; }
@@ -429,25 +418,44 @@
   </main></div></div>
   <script>
     (function () {
-      const DESIGN_WIDTH = 648;
       const wrapper = document.getElementById('page-wrapper');
       const pageScale = document.getElementById('page-scale');
 
-      let baseHeight;
-      function measureBaseHeight() {
-        const prev = pageScale.style.transform;
-        pageScale.style.transform = 'none';
-        baseHeight = pageScale.offsetHeight;
-        pageScale.style.transform = prev;
-      }
-
       function applyScale() {
-        if (!baseHeight) measureBaseHeight();
+        // 页面原始宽度：608.7px
+        const PAGE_WIDTH = 608.7;
+        
+        // 修正缩放比例：Scale = window.innerWidth / 页面原始宽度
+        // 不要做任何减法，缩放后的视觉宽度必须正好等于 100vw
         const ww = window.innerWidth || document.documentElement.clientWidth;
-        const scale = ww / DESIGN_WIDTH;
-        pageScale.style.transformOrigin = 'top center';
-        pageScale.style.transform = 'scale(' + scale + ')';
-        wrapper.style.height = (baseHeight * scale) + 'px';
+        const targetScale = ww / PAGE_WIDTH;
+
+        // 临时移除transform来测量真实高度
+        const prevTransform = pageScale.style.transform;
+        pageScale.style.transform = 'none';
+        // 强制重排以获取准确高度
+        void pageScale.offsetHeight;
+        // 使用 scrollHeight 获取完整内容高度（包括溢出部分）
+        const pageScrollHeight = pageScale.scrollHeight;
+
+        // 应用缩放：使用 left top 作为原点，确保缩放后正好贴合屏幕左边缘
+        pageScale.style.transformOrigin = 'left top';
+        pageScale.style.transform = 'scale(' + targetScale + ')';
+
+        // 动态同步父容器高度：直接等于缩放后的实际高度
+        // 彻底解决底部空白问题，不使用 margin-bottom 负值
+        const scaledHeight = pageScrollHeight * targetScale;
+        
+        // 使用 requestAnimationFrame 确保在 transform 应用后设置高度
+        requestAnimationFrame(function() {
+          // 父容器高度直接等于缩放后的实际高度
+          wrapper.style.height = scaledHeight + 'px';
+          wrapper.style.minHeight = 'auto';
+          wrapper.style.maxHeight = 'none';
+          
+          // 移除 margin-bottom 负值，不再需要
+          pageScale.style.marginBottom = '0';
+        });
       }
 
       window.addEventListener('resize', applyScale, { passive: true });

@@ -10,17 +10,16 @@
     /* 基础与重置 */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; }
-    #page-wrapper { width: 100vw; overflow-x: hidden; }
+    #page-wrapper { width: 100%; overflow-x: hidden; }
     body { margin: 0; color: #303030; background: #ffffff; overflow-x: hidden; }
     img { display: block; max-width: 100%; }
 
-    /* 字体：延迟加载优化 */
+    /* 阿里妈妈方圆体 - 官方 CDN 引用示例 */
     @font-face {
-      font-family: 'Alimama FangYuanTi VF';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url('./assets/AlimamaFangYuanTiVF-Thin-2.woff') format('woff');
+      font-family: 'AlimamaFangYuanTi';
+      src: url('https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff2') format('woff2'),
+           url('https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff') format('woff');
+      font-display: swap; /* 关键：确保字体加载时先显示系统字体，不留白 */
     }
     
     /* 初始状态使用系统字体，避免阻塞渲染 */
@@ -41,21 +40,25 @@
     }
 
     body { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .font-alimama { font-family: "Alimama FangYuanTi VF", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
+    .font-alimama { font-family: "AlimamaFangYuanTi", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif; }
     .axis-bevl-1 { font-variation-settings: 'BEVL' 1; }
     .axis-bevl-80 { font-variation-settings: 'BEVL' 80; }
     .axis-bevl-100 { font-variation-settings: 'BEVL' 100; }
 
 
-    /* 页面主容器 */
-    .page { width: var(--w-page); margin: 0 auto; padding-top: 0; padding-bottom: 0; display: flex; flex-direction: column; gap: 24px; }
+    /* 页面主容器：桌面限制最大宽度并居中 */
+    .page { width: var(--w-page); max-width: 800px; margin: 0 auto; padding-top: 0; padding-bottom: 0; display: flex; flex-direction: column; gap: 12px; }
+
+    /* 移动端：贴边显示，不留左右空白 */
+    @media (max-width: 768px) {
+      .page { width: 100%; max-width: 100%; margin: 0; padding-left: 0; padding-right: 0; }
+      #page-wrapper { width: 100%; }
+    }
 
     /* 顶部 Header */
-    .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; }
-    .header-left, .header-mid, .header-right { display: flex; align-items: center; }
-    .header-left { gap: 8px; cursor: pointer; }
-    .header-mid { gap: 8px; }
-    .header-right { gap: 4px; }
+    .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; width: 100%; }
+    .header-left, .header-mid, .header-right { display: flex; align-items: center; transform: scale(0.8); transform-origin: center center; }
+    .header-left { cursor: pointer; }
 
     .addr-bar { height: 12px; width: 234px; background: #ffffff; border-radius: var(--radius-99); padding-left: 12px; padding-right: 2px; display: flex; align-items: center; justify-content: space-between; }
     .addr-text { font-size: 6px; color: #303030; line-height: 1; font-style: normal; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
@@ -63,7 +66,7 @@
 
     /* LOGO + 欢迎区 */
     .welcome-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 14px; position: relative; }
-    .help-decoration { position: absolute; right: 94px; top: 64px; z-index: 10; }
+    .help-decoration { position: absolute; right: 24px; top: 64px; z-index: 10; transform: scale(0.7); transform-origin: top right; }
     .logo-stack { display: flex; flex-direction: column; align-items: center; gap: 14px; height: 96px; width: 192px; }
     .divider { width: 100%; height: 2px; background: #000000; display: block; }
 
@@ -73,31 +76,32 @@
     .welcome-stats { display: flex; gap: 32px; align-items: center; font-size: 8px; color: #000; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
 
     /* 三列主区域 */
-    .main-cols { display: flex; gap: 20px; align-items: stretch; padding: 0 14px; }
-    .col-left, .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 100%; }
-    .col-mid { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .main-cols { display: flex; gap: 8px; align-items: stretch; padding: 0 14px; width: 100%; font-size: 70%; }
+    .col-left { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 100%; flex-shrink: 0; }
+    .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; height: 100%; flex: 1; min-width: 0; }
+    .col-mid { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 
     .chip-title { background: #fdfdfd; height: 20px; border-radius: var(--radius-99); display: flex; align-items: center; padding: 2px 6px; width: max-content; }
     .chip-title .row { width: 100%; display: flex; align-items: flex-end; justify-content: space-between; color: var(--c-brand); }
-    .chip-title .row .big { font-size: 12px; }
-    .chip-title .row .sub { font-size: 6px; }
+    .chip-title .row .big { font-size: 8px; }
+    .chip-title .row .sub { font-size: 4px; }
 
-    .hot-list { display: flex; flex-direction: column; gap: 4px; font-size: 8px; color: #303030; width: max-content; }
+    .hot-list { display: flex; flex-direction: column; gap: 4px; font-size: 6px; color: #303030; width: max-content; }
     .hot-list > div { white-space: nowrap; }
 
     .menu-list { display: flex; flex-direction: column; gap: 8px; }
-    .menu-item { display: flex; align-items: flex-start; gap: 6px; color: #303030; font-size: 8px; white-space: nowrap; }
+    .menu-item { display: flex; align-items: flex-start; gap: 6px; color: #303030; font-size: 6px; white-space: nowrap; }
 
     .post-card { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 12px 8px; display: flex; flex-direction: column; gap: 4px; align-items: stretch; }
     .post-header { display: flex; align-items: flex-end; justify-content: space-between; }
-    .post-title { color: #303030; font-size: 9px; white-space: nowrap; }
+    .post-title { color: #303030; font-size: 6px; white-space: nowrap; }
     .post-body { display: flex; flex-direction: column; gap: 3px; }
-    .post-excerpt { color: var(--c-text-muted); line-height: 8px; font-size: 5.4px; }
-    .post-footer { display: flex; align-items: center; justify-content: space-between; font-size: 5.4px; }
+    .post-excerpt { color: var(--c-text-muted); line-height: 8px; font-size: 4px; }
+    .post-footer { display: flex; align-items: center; justify-content: space-between; font-size: 4px; }
     .post-footer .ellipsis { color: var(--c-text-muted); }
     .post-footer .author { color: var(--c-text-weak); }
 
-    .pill { background: var(--c-bg-dim); border-radius: var(--radius-99); padding: 10px 8px; font-size: 7px; color: #303030; }
+    .pill { background: var(--c-bg-dim); border-radius: var(--radius-99); padding: 10px 8px; font-size: 5px; color: #303030; }
 
     /* 右侧信息卡 */
     .info-chip { background: var(--c-bg-card-2); border-radius: var(--radius-99); height: 20px; width: max-content; display: flex; align-items: center; padding: 2px 6px; }
@@ -111,10 +115,16 @@
     .info-item .row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
 
     /* 页脚区 */
-    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px; margin-bottom: 0; }
-    .footer-row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px; margin-bottom: 0; font-size: 70%; }
+    .footer-row { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0; }
 
     /* 细节文字尺寸（按 Figma 标注）*/
+    .main-cols .t6 { font-size: 4px; }
+    .main-cols .t7 { font-size: 5px; }
+    .main-cols .t8 { font-size: 6px; }
+    .main-cols .t9 { font-size: 6px; }
+    .main-cols .t12 { font-size: 8px; }
+    /* 保持非 main-cols 区域的原始尺寸 */
     .t6 { font-size: 6px; }
     .t7 { font-size: 7px; }
     .t8 { font-size: 8px; }
@@ -147,17 +157,22 @@
     .col-left .menu-list { width: max-content; }
     .col-left .hot-list { width: max-content; }
 
-    /* Restore col-right per Figma (fixed width + consistent inner stretch) */
-    .col-right { width: 120px; padding: 10px 8px; }
+    /* Restore col-right per Figma (adaptive width + consistent inner stretch) */
+    .col-right { padding: 10px 8px; }
     .col-right .info-chip,
     .col-right .info-chip .row,
     .col-right .profile,
     .col-right .info-list,
     .col-right .info-item { width: 100%; }
     /* Force size for specific classes */
+    .main-cols .font-alimama.axis-bevl-100.t9.fw-normal.mid,
+    .main-cols .font-alimama.axis-bevl-100 { font-size: 8px !important; }
+    /* Override for left/right t6 to 4px */
+    .main-cols .font-alimama.axis-bevl-100.t6.fw-m.right,
+    .main-cols .font-alimama.axis-bevl-100.t6.fw-m.left { font-size: 4px !important; }
+    /* 保持非 main-cols 区域的原始尺寸 */
     .font-alimama.axis-bevl-100.t9.fw-normal.mid,
     .font-alimama.axis-bevl-100 { font-size: 12px !important; }
-    /* Override for left/right t6 to 6px */
     .font-alimama.axis-bevl-100.t6.fw-m.right,
     .font-alimama.axis-bevl-100.t6.fw-m.left { font-size: 6px !important; }
     /* Spacing: chip-title -> list = 14px (all sections) */
@@ -309,17 +324,17 @@
       <section class="col-mid" data-node-id="46:3359">
         <!-- 帖子标题 -->
         <div class="pill" style="padding: 10px 12px; width: 100%; height: auto; background-color: var(--c-bg-dim); border-radius: var(--radius-99);">
-          <p class="font-alimama fw-sb" style="margin: 0; font-size: 10px; color: var(--c-text); white-space: nowrap;">【闲聊】有没有谁看到表白墙上□□□名O有主的帖子和对方的回帖</p>
+          <p class="font-alimama fw-sb" style="margin: 0; font-size: 7px; color: var(--c-text); white-space: nowrap;">【闲聊】有没有谁看到表白墙上□□□名O有主的帖子和对方的回帖</p>
         </div>
 
         <!-- 删帖公开提示 -->
         <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-brand); white-space: nowrap;">[此贴已被当事人实名请求删帖] [此贴又被当事人实名请求公开]</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-brand); white-space: nowrap;">[此贴已被当事人实名请求删帖] [此贴又被当事人实名请求公开]</p>
         </div>
 
         <!-- 帖子内容 -->
         <div class="post-card" style="gap: 24px;">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">虽然那两条投稿隔了一天就被当事人举着学生证去管理员那里删除了，但感觉已经传遍预备校了（。）</p>
             <p style="margin: 0;">不得不说校园墙不能截图的机制真是坏坏的，有些瓜删得太快了根本来不及品。但是聪慧的老吃家楼主已经把瓜印在了脑子里，我要把那两个投稿复述一遍，供没看到的朋友们一起品：</p>
             <p style="margin: 0;">——匿名同学在表白墙发了条投稿，说高二的□□□同学已经名O有主，希望大家不要再在墙上自荐了。虽然不知道投稿人是谁，但是这条投稿是SVIP特效彩色（怎么真的会有人氪墙墙SVIP）墙的建设感谢名单里就一个SVIP（。）</p>
@@ -328,52 +343,52 @@
             <p style="margin: 0;">但是比起鬼屋NPC，楼主感觉□□更适合Wer地一声举起手电筒去做鬼屋NPC，□□□都被吓得炸毛了炸毛了炸毛了……当然后来也听到□□□大吼了一声□□（。）</p>
             <p style="margin: 0;">好吃啊。</p>
           </div>
-          <p class="font-alimama" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">发帖人：匿名｜标签：闲聊</p>
+          <p class="font-alimama" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">发帖人：匿名｜标签：闲聊</p>
         </div>
 
         <!-- 评论区 -->
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">经典咏流传。</p>
             <p style="margin: 0;">老吃家企鹅厨子补充课件。</p>
             <p style="margin: 0;">谁还记得上次□□在校庆游戏里拿了最高分？校长问他对预备校有没有什么要求，□□说想把他和□□□的合照投在校门口最大的屏幕上，放一星期。</p>
             <p style="margin: 0;">后来没能在屏幕上看到合照真是遗憾。</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">1F 墨镜企鹅震撼美味</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">1F 墨镜企鹅震撼美味</p>
         </div>
 
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">楼主拿Wer来形容□□真是把我笑死……</p>
             <p style="margin: 0;">而且我记得□□□的那条澄清帖还被SVIP回复了，他说他喵喵咪咪的真可爱……</p>
             <p style="margin: 0;">这两个人莫名其妙的就很适合这些形容词。</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">2F 匿名</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">2F 匿名</p>
         </div>
 
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">感觉□□很喜欢这种五颜六色的来着</p>
             <p style="margin: 0;">……或者也可能因为他是氪金玩家，就能开这么多色盘。</p>
             <p style="margin: 0;">他停学校车位那辆车的内饰还是粉色的，有次看到他和□□□坐车里，感觉已经自带粉红泡泡。</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">3F 你的定制方案是什么</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">3F 你的定制方案是什么</p>
         </div>
 
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">宝宝……真的很可爱……</p>
             <p style="margin: 0;">真的很想上手 rua 小猫咪……</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">4F AAA首都第一深情</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">4F AAA首都第一深情</p>
         </div>
 
         <div class="post-card">
-          <div class="font-alimama" style="font-size: 8px; color: var(--c-text); line-height: 14px;">
+          <div class="font-alimama" style="font-size: 6px; color: var(--c-text); line-height: 14px;">
             <p style="margin: 0;">我之前和发小是类似情况（也是双A）。后来发现是“信息素亲和性异常增高”，从医学上来讲，虽然我们都是ALPHA，但是我们的匹配度是偏高的。</p>
             <p style="margin: 0;">建议你和你朋友一起去195院做一次“个体匹配度检测”。</p>
           </div>
-          <p class="font-alimama fw-b" style="margin: 0; font-size: 8px; color: var(--c-text); text-align: right;">5F DR.POOL</p>
+          <p class="font-alimama fw-b" style="margin: 0; font-size: 6px; color: var(--c-text); text-align: right;">5F DR.POOL</p>
         </div>
       </section>
 
@@ -382,14 +397,16 @@
 
     <!-- 页脚 -->
     <footer class="footer" data-node-id="46:1718">
-      <img alt="chat-bottom" src="./images/chat-bottom.svg" />
+      <img alt="chat-bottom" src="./images/chat-bottom.svg" style="transform: scale(0.7); transform-origin: center;" />
       <div class="footer-row">
-        <div style="width:138.6px; height:28.44px; overflow:hidden;">
-          <img alt="199" src="./images/decoration-left.svg" style="width:100%; height:100%; object-fit:cover;" />
+        <div style="flex: 1; height:20px; display:flex; align-items:center; justify-content:flex-start;">
+          <img alt="199" src="./images/decoration-left.svg" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;" />
         </div>
-        <img alt="chat-title" src="./images/chat-title.svg" />
-        <div style="width:138.6px; height:28.44px; overflow:hidden;">
-          <img alt="200" src="./images/decoration-right.svg" style="width:100%; height:100%; object-fit:cover;" />
+        <div style="flex-shrink: 0; width: auto; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+          <img alt="chat-title" src="./images/chat-title.svg" style="width:auto; height:auto; max-width:none; transform: scaleX(0.7); transform-origin: center; display:block;" />
+        </div>
+        <div style="flex: 1; height:20px; display:flex; align-items:center; justify-content:flex-end;">
+          <img alt="200" src="./images/decoration-right.svg" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;" />
         </div>
       </div>
     </footer>
@@ -408,8 +425,8 @@
       
       function loadFont() {
         const font = new FontFace(
-          'Alimama FangYuanTi VF',
-          'url(./assets/AlimamaFangYuanTiVF-Thin-2.woff) format("woff")'
+          'AlimamaFangYuanTi',
+          'url(https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff2) format("woff2"), url(https://at.alicdn.com/t/webfont_f8f11y8y6jr.woff) format("woff")'
         );
         
         font.load().then(function(loadedFont) {
@@ -429,19 +446,9 @@
       const pageScale = document.getElementById('page-scale');
 
       function applyScale() {
-        const ww = window.innerWidth || document.documentElement.clientWidth;
-        const scale = ww / DESIGN_WIDTH;
-        
-        // 临时移除transform来测量真实高度
+        // 不再使用整体缩放，保持原始比例，依赖CSS控制宽度
         pageScale.style.transform = 'none';
-        const realHeight = pageScale.offsetHeight;
-        
-        // 应用缩放（包括移动端）
-        pageScale.style.transformOrigin = 'top center';
-        pageScale.style.transform = 'scale(' + scale + ')';
-        
-        // 设置wrapper高度为缩放后的高度
-        wrapper.style.height = (realHeight * scale) + 'px';
+        wrapper.style.height = 'auto';
       }
 
       window.addEventListener('resize', applyScale, { passive: true });
