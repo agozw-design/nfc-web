@@ -39,8 +39,8 @@
     .axis-bevl-100 { font-variation-settings: 'BEVL' 100; }
 
 
-    /* 页面主容器：固定宽度，用于等比缩放 */
-    .page { width: var(--w-page); margin: 0; padding: 0; display: flex; flex-direction: column; gap: 24px; }
+    /* 页面主容器：桌面限制最大宽度并居中 */
+    .page { width: var(--w-page); max-width: 800px; margin: 0 auto; padding: 0; display: flex; flex-direction: column; gap: 24px; }
 
     /* 顶部 Header */
     .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; }
@@ -116,23 +116,17 @@
     .fw-m { font-weight: 500; }
     .center { text-align: center; }
     .nowrap { white-space: nowrap; }
-    /* 固定宽度自适应缩放容器（保持 608.7px 版心，窄屏自动等比缩放）*/
-    #page-wrapper { width: 100vw; display: flex; justify-content: flex-start; position: relative; overflow: hidden; padding: 0; margin: 0; height: auto; }
-    
-    /* 为被缩放的主容器保留原始布局宽度 */
-    .page { will-change: transform; }
+    /* 页面容器 */
+    #page-wrapper { width: 100%; overflow-x: hidden; }
     
     /* 移动端适配：确保内容撑满屏幕，无左右边距 */
     @media (max-width: 768px) {
-      body { padding: 0; margin: 0; overflow-x: hidden; }
-      #page-wrapper { width: 100vw; padding: 0; margin: 0; overflow-x: hidden; }
-      .page { width: 608.7px; }
+      .page { width: 100%; max-width: 100%; margin: 0; padding: 0; }
+      #page-wrapper { width: 100%; }
       .welcome-wrap { padding: 0; }
       .main-cols { padding: 0; gap: 4px; }
-      .header { padding: 0 4px; }
-      .footer { padding: 16px 0; }
-      /* 确保所有内容区域都没有左右边距 */
-      .header-left, .header-mid, .header-right { padding: 0; }
+      .header { padding: 0 8px; }
+      .footer { padding: 16px 8px; }
       /* 确保内容区域完全撑满 */
       .addr-bar { max-width: calc(100% - 20px); }
     }
