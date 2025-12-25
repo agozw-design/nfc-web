@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CHAT.PREP</title>
   <!-- 预加载关键字体 -->
+  <!-- 预加载关键 SVG 资源 -->
+  <link rel="preload" href="./images/arrow.svg" as="image" fetchpriority="high" />
+  <link rel="preload" href="./images/offtherecord.svg" as="image" fetchpriority="high" />
+  <link rel="preload" href="./images/paw.svg" as="image" fetchpriority="high" />
+  <link rel="preload" href="./images/cursor.svg" as="image" fetchpriority="high" />
+  <link rel="preload" href="./images/star.svg" as="image" fetchpriority="high" />
+  <link rel="preload" href="./images/LOGO.png" as="image" fetchpriority="high" />
+  <link rel="preload" href="./images/title-up.svg" as="image" fetchpriority="high" />
+  <link rel="preload" href="./images/help-up.svg" as="image" fetchpriority="high" />
 
   <style>
     /* 基础与重置 */
@@ -175,28 +184,28 @@
     <!-- Header -->
     <header class="header" data-name="Header" data-node-id="44:1715">
       <div class="header-left" data-node-id="44:1714">
-        <img loading="lazy" alt="容器图标" width="16" height="16" src="./images/arrow.svg" />
-        <img loading="lazy" alt="logo1" width="53" height="10" src="./images/offtherecord.svg" />
+        <img alt="容器图标" width="16" height="16" src="./images/arrow.svg" fetchpriority="high" />
+        <img alt="logo1" width="53" height="10" src="./images/offtherecord.svg" fetchpriority="high" />
       </div>
       <div class="header-mid" data-node-id="44:1704">
         <div class="addr-bar" data-node-id="44:1702">
           <span class="addr-text">HTTPS://WWW.PREPSCHOOL.COM</span>
-          <img loading="lazy" alt="猫爪" width="9.72" height="9.72" src="./images/paw.svg" />
+          <img alt="猫爪" width="9.72" height="9.72" src="./images/paw.svg" fetchpriority="high" />
         </div>
-        <img loading="lazy" alt="鼠标" width="6" height="12" src="./images/cursor.svg" />
+        <img alt="鼠标" width="6" height="12" src="./images/cursor.svg" fetchpriority="high" />
       </div>
       <div class="header-right" data-node-id="44:1707">
-        <img loading="lazy" alt="星星" width="10" height="10" src="./images/star.svg" />
+        <img alt="星星" width="10" height="10" src="./images/star.svg" fetchpriority="high" />
         <span class="font-alimama axis-bevl-1 collect">收藏本站</span>
       </div>
     </header>
 
     <!-- 欢迎区 -->
     <section class="welcome-wrap" data-node-id="44:1716">
-      <img loading="lazy" class="help-decoration" src="./images/help-up.svg" alt="help decoration" />
+      <img class="help-decoration" src="./images/help-up.svg" alt="help decoration" fetchpriority="high" />
       <div class="logo-stack" data-node-id="44:1672">
-        <img loading="lazy" alt="LOGO" width="36" height="36" src="./images/LOGO.png" />
-        <img loading="lazy" alt="Union" width="192.522" height="46.646" src="./images/title-up.svg" />
+        <img alt="LOGO" width="36" height="36" src="./images/LOGO.png" fetchpriority="high" />
+        <img alt="Union" width="192.522" height="46.646" src="./images/title-up.svg" fetchpriority="high" />
       </div>
 
       <div class="welcome-bar" data-node-id="44:1693">
