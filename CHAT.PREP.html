@@ -63,10 +63,10 @@
     .welcome-row .left, .welcome-row .mid, .welcome-row .right { white-space: nowrap; }
     .welcome-stats { display: flex; gap: 32px; align-items: center; font-size: 8px; color: #000; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
 
-    /* 三列主区域 */
+    /* 两列主区域 */
     .main-cols { display: flex; gap: 8px; align-items: stretch; padding: 0 14px; }
-    .col-left, .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; width: max-content; height: 100%; }
-    .col-mid { width: 308.72px; display: flex; flex-direction: column; gap: 5px; }
+    .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; height: 100%; }
+    .col-mid { flex: 1; display: flex; flex-direction: column; gap: 5px; }
 
     .chip-title { background: #fdfdfd; height: 20px; border-radius: var(--radius-99); display: flex; align-items: center; padding: 2px 6px; width: max-content; }
     .chip-title .row { width: 100%; display: flex; align-items: flex-end; justify-content: space-between; color: var(--c-brand); }
@@ -124,13 +124,8 @@
 
     /* 字体内嵌预留（已改用 CDN 引用，不再需要 base64 内嵌） */
     #help-card{cursor:pointer;} #gossip-card{cursor:pointer;} #chat-card{cursor:pointer;}
-    /* Restore col-left per Figma (fixed width and full-width headers/lists) */
-    .col-left { width: max-content; padding: 10px 8px; }
-        .col-left .chip-title { width: 100%; }
-    .col-left .menu-list { width: max-content; }
-    .col-left .hot-list { width: max-content; }
-
-    /* Restore col-right per Figma (fixed width + consistent inner stretch) */
+    
+    /* col-right per Figma (fixed width + consistent inner stretch) */
     .col-right { width: 120px; padding: 10px 8px; }
     .col-right .info-chip,
     .col-right .info-chip .row,
@@ -143,9 +138,6 @@
     /* Override for left/right t6 to 6px */
     .font-alimama.axis-bevl-100.t6.fw-m.right,
     .font-alimama.axis-bevl-100.t6.fw-m.left { font-size: 6px !important; }
-    /* Spacing: chip-title -> list = 14px (all sections) */
-    .col-left .chip-title + .hot-list,
-    .col-left .chip-title + .menu-list { margin-top: 14px; }
   </style>
 </head>
 <body>
@@ -192,102 +184,47 @@
       </div>
     </section>
 
-    <!-- 三列主内容 -->
+    <!-- 两列主内容 -->
     <section class="main-cols" data-node-id="46:1565">
-      <!-- 左列 -->
-      <aside class="col-left" data-node-id="46:1566">
-        <!-- 今日热点 -->
-        <div>
-          <div class="chip-title font-alimama axis-bevl-1" data-node-id="46:1568">
-            <div class="row">
-              <span class="big">今日热点</span>
-              <span class="sub">HOT TOPIC</span>
-            </div>
-          </div>
-          <div class="hot-list font-alimama axis-bevl-80 t8" data-node-id="46:1572">
-            <div>【求助】和朋友在一起时……</div>
-            <div>【八卦】校外实践课有两个同学…</div>
-            <div>【闲聊】有没有谁看到表白墙……</div>
-            <div>【种草】谁能出绝赞非售卖周边！</div>
-            <div>【招募】寻找苦于智齿同学……</div>
-            <div>【招募】校庆志愿者</div>
+      <!-- 左列：用户信息 -->
+      <aside class="col-right" data-node-id="46:1694">
+        <div class="info-chip font-alimama axis-bevl-1" data-node-id="46:1695">
+          <div class="row">
+            <span class="t12">我的信息</span>
+            <span class="t6">MEME</span>
           </div>
         </div>
 
-        <!-- 个人群组 -->
-        <div>
-          <div class="chip-title font-alimama axis-bevl-1" data-node-id="46:1580">
-            <div class="row">
-              <span class="big">个人群组</span>
-              <span class="sub">YOUR GROUP</span>
-            </div>
+        <div class="profile" data-node-id="46:1699">
+          <div class="avatar-card" data-node-id="46:1701">
+            <img loading="lazy" alt="avatar-shape" width="42.74" height="71.28" src="./images/avatar.svg" />
           </div>
-          <div class="menu-list" data-node-id="46:1584">
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>怎么今天又在买谷</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>绝美爱情品鉴大师</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>今天吃什么投票</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>老师我要麦麦配送员</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>CHAT.PREP管理组</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>匿名树洞</span>
-            </div>
-          </div>
-        </div>
+          <div class="font-alimama axis-bevl-1 t8 fw-b">我是MEME</div>
 
-        <!-- 论坛分区 -->
-        <div>
-          <div class="chip-title font-alimama axis-bevl-1" data-node-id="46:1604">
-            <div class="row">
-              <span class="big">论坛分区</span>
-              <span class="sub">FORUM ZONE</span>
+          <div class="info-list" data-node-id="46:1704">
+            <div class="info-item" data-node-id="46:1705">
+              <div class="row">
+                <span class="font-alimama axis-bevl-1 t8">关注</span>
+                <img loading="lazy" alt="***" width="9.837" height="3.032" src="./images/no.svg" />
+              </div>
             </div>
-          </div>
-          <div class="menu-list" data-node-id="46:1608">
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>首页</span>
+            <div class="info-item" data-node-id="46:1709">
+              <div class="row">
+                <span class="font-alimama axis-bevl-1 t8">粉丝</span>
+                <img loading="lazy" alt="***" width="9.837" height="3.032" src="./images/no.svg" />
+              </div>
             </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>求助</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>八卦</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>闲聊</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>种草</span>
-            </div>
-            <div class="menu-item font-alimama axis-bevl-80 t8">
-              <img loading="lazy" alt="bullet" width="7.92" height="9" src="./images/triangle.svg" />
-              <span>邀请</span>
+            <div class="info-item" data-node-id="46:1713">
+              <div class="row">
+                <span class="font-alimama axis-bevl-1 t8" style="color:#303030">发帖数</span>
+                <span class="font-alimama axis-bevl-1 t8" style="color:#74625f">520</span>
+              </div>
             </div>
           </div>
         </div>
       </aside>
 
-      <!-- 中列 帖子列表 -->
+      <!-- 右列 帖子列表 -->
       <section class="col-mid" data-node-id="46:1627">
         <article class="post-card" id="help-card" role="button" tabindex="0" aria-label="查看详情：和朋友在一起时手环一直在响，这是什么原因？（求助）" data-name="HELP" data-node-id="46:1628">
           <div class="post-header">
@@ -359,44 +296,6 @@
         <div class="pill font-alimama axis-bevl-1 t7">【邀请】天呢高二游泳课要期中考了…有没有人一起去观A（（（</div>
         <div class="pill font-alimama axis-bevl-1 t7">【求助】寻人启事：寻找少爷 爱玩手机 爱打游戏 不爱上学</div>
       </section>
-
-      <!-- 右列 -->
-      <aside class="col-right" data-node-id="46:1694">
-        <div class="info-chip font-alimama axis-bevl-1" data-node-id="46:1695">
-          <div class="row">
-            <span class="t12">我的信息</span>
-            <span class="t6">MEME</span>
-          </div>
-        </div>
-
-        <div class="profile" data-node-id="46:1699">
-          <div class="avatar-card" data-node-id="46:1701">
-            <img loading="lazy" alt="avatar-shape" width="42.74" height="71.28" src="./images/avatar.svg" />
-          </div>
-          <div class="font-alimama axis-bevl-1 t8 fw-b">我是MEME</div>
-
-          <div class="info-list" data-node-id="46:1704">
-            <div class="info-item" data-node-id="46:1705">
-              <div class="row">
-                <span class="font-alimama axis-bevl-1 t8">关注</span>
-                <img loading="lazy" alt="***" width="9.837" height="3.032" src="./images/no.svg" />
-              </div>
-            </div>
-            <div class="info-item" data-node-id="46:1709">
-              <div class="row">
-                <span class="font-alimama axis-bevl-1 t8">粉丝</span>
-                <img loading="lazy" alt="***" width="9.837" height="3.032" src="./images/no.svg" />
-              </div>
-            </div>
-            <div class="info-item" data-node-id="46:1713">
-              <div class="row">
-                <span class="font-alimama axis-bevl-1 t8" style="color:#303030">发帖数</span>
-                <span class="font-alimama axis-bevl-1 t8" style="color:#74625f">520</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
     </section>
 
     <!-- 页脚 -->
