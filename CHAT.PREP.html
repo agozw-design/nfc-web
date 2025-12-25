@@ -43,7 +43,7 @@
     .page { width: var(--w-page); max-width: 800px; margin: 0 auto; padding: 0; display: flex; flex-direction: column; gap: 24px; }
 
     /* 顶部 Header */
-    .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; }
+    .header { background: var(--c-brand); height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #fcfcfc; width: 100%; }
     .header-left, .header-mid, .header-right { display: flex; align-items: center; }
     .header-left { gap: 8px; }
     .header-mid { gap: 8px; }
@@ -54,7 +54,7 @@
     .collect { font-size: 12px; white-space: nowrap; }
 
     /* LOGO + 欢迎区 */
-    .welcome-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0; }
+    .welcome-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0; width: 100%; }
     .logo-stack { display: flex; flex-direction: column; align-items: center; gap: 14px; height: 96px; width: 192px; }
     .divider { width: 100%; height: 2px; background: #000000; display: block; }
 
@@ -64,7 +64,7 @@
     .welcome-stats { display: flex; gap: 32px; align-items: center; font-size: 8px; color: #000; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
 
     /* 两列主区域 */
-    .main-cols { display: flex; gap: 8px; align-items: stretch; padding: 0; }
+    .main-cols { display: flex; gap: 8px; align-items: stretch; padding: 0; width: 100%; }
     .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; height: 100%; }
     .col-mid { flex: 1; display: flex; flex-direction: column; gap: 5px; }
 
@@ -325,81 +325,28 @@
     </footer>
   </main></div></div>
   <script>
-    // 核心缩放脚本：立即执行，但使用 requestAnimationFrame 优化
+    // 核心脚本：移除可能的 transform，使用正常的 CSS 响应式布局
     (function () {
       const wrapper = document.getElementById('page-wrapper');
       const pageScale = document.getElementById('page-scale');
       if (!wrapper || !pageScale) return;
 
-      // 页面原始宽度：608.7px
-      const PAGE_WIDTH = 608.7;
-      
-      // 检测是否是移动设备
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-                      (window.innerWidth <= 768);
-      
-      // 在移动端，保存初始屏幕宽度，用于计算固定的缩放比例
-      let initialMobileWidth = null;
-      if (isMobile) {
-        initialMobileWidth = screen.width || window.outerWidth || window.innerWidth;
-      }
-
       function applyScale() {
-        // 获取基础宽度
-        let baseWidth;
-        if (isMobile && initialMobileWidth) {
-          // 在移动端，始终使用初始屏幕宽度，避免受浏览器缩放影响
-          baseWidth = initialMobileWidth;
-        } else {
-          // 桌面端使用当前视口宽度
-          baseWidth = window.innerWidth || document.documentElement.clientWidth;
-        }
-        
-        const targetScale = baseWidth / PAGE_WIDTH;
-
-        // 使用 requestAnimationFrame 延迟布局计算，避免阻塞渲染
         requestAnimationFrame(function() {
-          // 临时移除transform来测量真实高度
-          const prevTransform = pageScale.style.transform;
           pageScale.style.transform = 'none';
-          void pageScale.offsetHeight; // 强制重排
-          const pageScrollHeight = pageScale.scrollHeight;
-
-          // 应用缩放 - 移动端和桌面端都使用缩放，确保内容撑满屏幕
-          pageScale.style.transformOrigin = 'left top';
-          pageScale.style.transform = 'scale(' + targetScale + ')';
-
-          // 同步高度和宽度
-          const scaledHeight = pageScrollHeight * targetScale;
-          const scaledWidth = PAGE_WIDTH * targetScale;
-          requestAnimationFrame(function() {
-            wrapper.style.height = scaledHeight + 'px';
-            wrapper.style.width = scaledWidth + 'px';
-            wrapper.style.minHeight = 'auto';
-            wrapper.style.maxHeight = 'none';
-            pageScale.style.marginBottom = '0';
-          });
+          wrapper.style.height = 'auto';
         });
       }
 
-      // 事件监听器使用防抖优化
       let resizeTimer;
       function debouncedApplyScale() {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(applyScale, 16); // 约60fps
+        resizeTimer = setTimeout(applyScale, 16);
       }
 
-      // 监听视口变化（包括浏览器缩放）
       window.addEventListener('resize', debouncedApplyScale, { passive: true });
       window.addEventListener('orientationchange', applyScale, { passive: true });
       
-      // 使用 visualViewport API 监听缩放变化（如果支持）
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', debouncedApplyScale, { passive: true });
-        window.visualViewport.addEventListener('scroll', debouncedApplyScale, { passive: true });
-      }
-      
-      // 立即执行一次，不等待 DOMContentLoaded
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', applyScale, { once: true });
       } else {
