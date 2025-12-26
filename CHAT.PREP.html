@@ -62,7 +62,7 @@
     .collect { font-size: 12px; white-space: nowrap; }
 
     /* LOGO + 欢迎区 */
-    .welcome-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0; width: 100%; }
+    .welcome-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 10px; width: 100%; }
     .logo-stack { display: flex; flex-direction: column; align-items: center; gap: 14px; height: 96px; width: 192px; }
     .divider { width: 100%; height: 2px; background: #000000; display: block; }
 
@@ -72,7 +72,7 @@
     .welcome-stats { display: flex; gap: 32px; align-items: center; font-size: 8px; color: #000; white-space: nowrap; font-family: "PingFang SC", sans-serif; }
 
     /* 两列主区域 */
-    .main-cols { display: flex; gap: 8px; align-items: stretch; padding: 0; width: 100%; }
+    .main-cols { display: flex; gap: 8px; align-items: stretch; padding: 0 10px; width: 100%; }
     .col-right { background: var(--c-bg-dim); border-radius: var(--radius-12); padding: 10px 10px; display: flex; flex-direction: column; gap: 14px; align-self: stretch; }
     .col-mid { flex: 1; display: flex; flex-direction: column; gap: 5px; align-self: stretch; }
 
@@ -110,7 +110,7 @@
     .info-item .row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
 
     /* 页脚区 */
-    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px; }
+    .footer { height: 154px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 24px 10px; }
     .footer-row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
 
     /* 细节文字尺寸（按 Figma 标注）*/
@@ -127,14 +127,14 @@
     /* 页面容器 */
     #page-wrapper { width: 100%; overflow-x: hidden; }
     
-    /* 移动端适配：确保内容撑满屏幕，无左右边距 */
+    /* 移动端适配：保持左右边距 */
     @media (max-width: 768px) {
       .page { width: 100%; max-width: 100%; margin: 0; padding: 0; }
       #page-wrapper { width: 100%; }
-      .welcome-wrap { padding: 0; }
-      .main-cols { padding: 0; gap: 4px; }
+      .welcome-wrap { padding: 0 10px; }
+      .main-cols { padding: 0 10px; gap: 4px; }
       .header { padding: 0 8px; }
-      .footer { padding: 16px 8px; }
+      .footer { padding: 16px 10px; }
       /* 确保内容区域完全撑满 */
       .addr-bar { max-width: calc(100% - 20px); }
     }
